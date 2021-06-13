@@ -131,7 +131,7 @@
 
 			.hero {
 				text-align: center;
-				background: #2b273c;
+				background: linear-gradient(45deg, #000001, #65487d);
 				color: #a7a1bd;
 				padding: 2em 1em;
 				margin-bottom: 2em;
@@ -186,6 +186,9 @@
 
 			.screenshot {
 				box-shadow: 0 51px 33px -40px rgba(0, 0, 0, 0.6);
+				transform: rotateX(4deg) rotateY(-2deg);
+    				border: 1px solid black;
+				border-radius: 10px;
 			}
 
 			.site-header {
@@ -475,7 +478,7 @@
 					>
 				</div>
 			</header>
-			<div style="margin-top:30px;">
+			<div style="margin-top:30px; perspective: 400px">
 				<img
 					class="screenshot"
 					src="images/ss1.png?v4"
