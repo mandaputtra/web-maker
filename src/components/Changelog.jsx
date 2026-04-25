@@ -85,7 +85,14 @@ export function Changelog(props) {
 		<div>
 			<h1>Whats new?</h1>
 
-			<Notification version="7.1.0" {...props} isLatest={true}>
+			<Notification version="7.2.0" {...props} isLatest={true}>
+				<li>
+					<strong>Larger Local Assets</strong>: The local assets file size limit
+					has been increased from 5MB to 10MB per file.
+				</li>
+			</Notification>
+
+			<Notification version="7.1.0" {...props}>
 				<li>
 					<strong>URL Query Params</strong>: New <code>htmlMode</code>,{' '}
 					<code>cssMode</code> and <code>jsMode</code> query parameters to
