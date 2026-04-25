@@ -1,7 +1,7 @@
 const DB_NAME = 'webmaker-local-assets';
 const STORE_NAME = 'assets';
 const DB_VERSION = 1;
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 function openDB() {
 	return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ export async function getAllAssets() {
 
 export async function addAsset(file) {
 	if (file.size > MAX_FILE_SIZE) {
-		throw new Error(`File size exceeds 5MB limit`);
+		throw new Error(`File size exceeds 10MB limit`);
 	}
 
 	const db = await openDB();

@@ -334,7 +334,7 @@ const LocalAssets = ({ i18n }) => {
 					isDropTarget={isDropTarget}
 					onFileChange={handleInputChange}
 					label={<Trans>Drop files or click here to add</Trans>}
-					sizeHint={<Trans>Max 5MB per file</Trans>}
+					sizeHint={<Trans>Max 10MB per file</Trans>}
 				/>
 
 				{localFiles.length > 0 && (
