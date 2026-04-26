@@ -179,7 +179,7 @@ eleventyExcludeFromCollections: true
 	</div>
 
 	<div class="blog-posts">
-		{% assign posts = collections.blogPosts | reverse %} {% for post in posts %}
+		{% for post in collections.blogPosts reversed %}
 		<a href="{{ post.url }}" class="blog-card">
 			<p class="blog-card__date">
 				<time datetime="{{ post.data.date | isoDate }}">
