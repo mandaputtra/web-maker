@@ -8,7 +8,7 @@ If you've ever wired up a reading-progress bar, you wrote roughly the same JavaS
 
 Scroll-driven animations make all of that go away. You declare what should animate and which scroll provides the timeline. The browser drives the rest, off the main thread.
 
-> Fork along: [Web Maker — scroll-driven trio](https://webmaker.app/create/F57hVPFXzx?layout=2). Three demos in one creation.
+> Fork along: [Web Maker — scroll-driven trio](https://webmaker.app/create/F57hVPFXzx?layout=1). Three demos in one creation.
 
 ## The two timelines you'll actually use
 
@@ -158,6 +158,6 @@ For Firefox holdouts, gate behind `@supports (animation-timeline: scroll())` —
 
 ## Try it
 
-> [Open the scroll-driven trio on Web Maker](https://webmaker.app/create/F57hVPFXzx?layout=2) — progress bar, parallax, reveal, all in one file.
+> [Open the scroll-driven trio on Web Maker](https://webmaker.app/create/F57hVPFXzx?layout=1) — progress bar, parallax, reveal, all in one file.
 
 Tomorrow: [View Transitions API](https://webmaker.app/blog/view-transitions-api-tabs-tutorial). The same "let the browser do it" idea, applied to state changes.
