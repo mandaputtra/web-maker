@@ -7,16 +7,17 @@
 			{% if page.url == '/' %}Web Maker - Free Offline Code Editor & Frontend
 			Playground{% else %}{{ title }} - Web Maker{% endif %}
 		</title>
-		<meta property="og:title" content="Web Maker - Free Offline Code Editor" />
+		<meta
+			property="og:title"
+			content="{% if page.url == '/' %}Web Maker - Free Offline Code Editor{% else %}{{ title }} - Web Maker{% endif %}"
+		/>
 		<meta name="viewport" content="width=device-width" />
-		<meta
-			name="description"
-			content="Build, experiment, and prototype HTML, CSS, and JavaScript instantly in your browser. Works offline. Supports SCSS, TypeScript, Pug, and more. Free Chrome extension."
-		/>
-		<meta
-			property="og:description"
-			content="Build, experiment, and prototype HTML, CSS, and JavaScript instantly in your browser. Works offline. Free Chrome extension."
-		/>
+		{% assign _description = description | default: "Build, experiment, and
+		prototype HTML, CSS, and JavaScript instantly in your browser. Works
+		offline. Supports SCSS, TypeScript, Pug, and more. Free Chrome extension."
+		%}
+		<meta name="description" content="{{ _description }}" />
+		<meta property="og:description" content="{{ _description }}" />
 		{% assign _ogImage = ogImage | default: "/images/ss1.png" %} {% if _ogImage
 		contains "://" %} {% assign _ogImageUrl = _ogImage %} {% else %} {% assign
 		_ogImageUrl = "https://webmaker.app" | append: _ogImage %} {% endif %}
