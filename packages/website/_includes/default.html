@@ -17,11 +17,14 @@
 			property="og:description"
 			content="Build, experiment, and prototype HTML, CSS, and JavaScript instantly in your browser. Works offline. Free Chrome extension."
 		/>
-		<meta property="og:image" content="https://webmaker.app/images/ss1.png" />
+		{% assign _ogImage = ogImage | default: "/images/ss1.png" %} {% if _ogImage
+		contains "://" %} {% assign _ogImageUrl = _ogImage %} {% else %} {% assign
+		_ogImageUrl = "https://webmaker.app" | append: _ogImage %} {% endif %}
+		<meta property="og:image" content="{{ _ogImageUrl }}" />
 		<meta property="og:url" content="https://webmaker.app{{ page.url }}" />
 		<meta property="og:type" content="website" />
-		<link rel="image_src" href="/images/ss1.png?v4" />
-		<meta name="twitter:image" content="https://webmaker.app/images/ss1.png" />
+		<link rel="image_src" href="{{ _ogImageUrl }}" />
+		<meta name="twitter:image" content="{{ _ogImageUrl }}" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@webmakerApp" />
 		<link rel="canonical" href="https://webmaker.app{{ page.url }}" />

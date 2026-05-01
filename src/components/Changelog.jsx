@@ -90,6 +90,10 @@ export function Changelog(props) {
 					<strong>Larger Local Assets</strong>: The local assets file size limit
 					has been increased from 5MB to 10MB per file.
 				</li>
+				<li>
+					<strong>Full Preview Shortcut</strong>: Toggle the full screen preview
+					layout with <code>Ctrl/⌘ + Alt/Opt + P</code>.
+				</li>
 			</Notification>
 
 			<Notification version="7.1.0" {...props}>

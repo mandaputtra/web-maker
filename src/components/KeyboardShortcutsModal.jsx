@@ -51,6 +51,12 @@ export function KeyboardShortcutsModal({ show, closeHandler }) {
 						</span>
 					</p>
 					<p>
+						<span class="kbd-shortcut__keys">Ctrl/⌘ + Alt/Opt + P</span>
+						<span class="kbd-shortcut__details">
+							<Trans>Toggle full screen preview</Trans>
+						</span>
+					</p>
+					<p>
 						<span class="kbd-shortcut__keys">Ctrl/⌘ + Alt/Opt + 0</span>
 						<span class="kbd-shortcut__details">
 							<Trans>Focus preview</Trans>
