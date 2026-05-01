@@ -902,7 +902,11 @@ export default class App extends Component {
 				// the search input in saved items pane. In that case
 				// we don't want this to trigger which in turn focuses back the last editor.
 				this.closeSavedItemsPane();
-			} else if ((event.ctrlKey || event.metaKey) && event.keyCode === 80) {
+			} else if (
+				(event.ctrlKey || event.metaKey) &&
+				!event.altKey &&
+				event.keyCode === 80
+			) {
 				// cmd+shift+P and this is Firefox, do nothing
 				if (event.shiftKey && navigator.userAgent.match(/Firefox/)) {
 					return true;
@@ -958,6 +962,15 @@ export default class App extends Component {
 					}
 					trackEvent('ui', 'focusPaneKeyboardShortcut', pane);
 				}
+			} else if (
+				(event.ctrlKey || event.metaKey) &&
+				event.altKey &&
+				event.keyCode === 80
+			) {
+				// Ctrl/⌘ + Alt/Opt + P - Toggle full screen preview
+				event.preventDefault();
+				this.layoutBtnClickHandler(4);
+				trackEvent('ui', 'toggleFullPreviewKeyboardShortcut');
 			}
 		});
 
