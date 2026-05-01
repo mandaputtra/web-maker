@@ -2,7 +2,10 @@
 title: "View Transitions API: animate between states like it's 2026"
 date: 2026-04-30
 description: 'Build a tabs component with morphing underline and crossfading panels using the View Transitions API. One JavaScript call, zero animation libraries.'
+ogImage: /images/blog/og-view-transition-api.png
 ---
+
+![View Transitions API](/images/blog/og-view-transition-api.png)
 
 The View Transitions API turns "before-state to after-state" into a one-liner. You wrap a DOM mutation in `document.startViewTransition()` and the browser:
 

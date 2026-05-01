@@ -5,6 +5,8 @@ description: 'A practical comparison of BEM, CSS Modules, and the new @scope at-
 ogImage: /images/blog/og-scope-vs-bem.png
 ---
 
+![CSS @scope](/images/blog/og-scope-vs-bem.png)
+
 For 15 years we've been styling components by inventing naming conventions. BEM, OOCSS, SMACSS, CSS Modules, CSS-in-JS. All of them solved the same problem — "stop styles from leaking" — by working _around_ the cascade rather than working with it.
 
 `@scope` is the cascade growing the feature we needed all along: a way to declare _"these rules apply to this subtree, and nowhere else."_ It went production-ready early 2026 in Chrome, Edge, and Safari.
