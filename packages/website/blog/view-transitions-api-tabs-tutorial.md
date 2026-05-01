@@ -13,7 +13,7 @@ The View Transitions API turns "before-state to after-state" into a one-liner. Y
 
 That's the default behaviour. With one extra CSS property — `view-transition-name` — you can make individual elements morph between their old and new positions instead of just fading. This is what "shared element transitions" used to require an entire native-app framework to do.
 
-> Fork along: [Web Maker — view-transitions tabs](https://webmaker.app/c/wm-view-transitions-tabs).
+> Fork along: [Web Maker — view-transitions tabs](https://webmaker.app/create/WYovxk7vmf?layout=2).
 
 ## The simplest possible transition
 
@@ -169,6 +169,6 @@ Before View Transitions, "morphing the active tab indicator" required FLIP, GSAP
 
 The native API is one function call, one CSS property, and works for both SPA mutations _and_ full-page navigations.
 
-> [Open the View Transitions tabs demo on Web Maker](https://webmaker.app/c/wm-view-transitions-tabs).
+> [Open the View Transitions tabs demo on Web Maker](https://webmaker.app/create/WYovxk7vmf?layout=2).
 
 Tomorrow: [`@scope` and the end of BEM](https://webmaker.app/blog/css-scope-vs-bem-modules).
