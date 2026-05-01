@@ -1,0 +1,2096 @@
+---
+layout: default.html
+title: Web Maker Pro
+description: Unlock unlimited creations, cloud asset hosting, host collab sessions, and an ad-free playground. $4/month with 30-day refund policy.
+---
+
+<!-- ============== SHARED BB SCAFFOLDING (matches index.html) ============== -->
+<style>
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	.bb {
+		position: relative;
+		left: 50%;
+		right: 50%;
+		width: 100vw;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+		padding-left: max(1rem, calc(50vw - 600px));
+		padding-right: max(1rem, calc(50vw - 600px));
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		overflow: hidden;
+	}
+	.bb__head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-bottom: 1.2rem;
+		margin-bottom: 2rem;
+		flex-wrap: wrap;
+	}
+	.bb__eyebrow {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.bb__eyebrow::before {
+		content: '';
+		width: 10px;
+		height: 10px;
+		display: inline-block;
+	}
+	.bb__title {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: clamp(2rem, 4.6vw, 3.6rem);
+		line-height: 0.95;
+		letter-spacing: -0.03em;
+		margin: 0.5rem 0 0;
+		max-width: 22ch;
+	}
+	.bb__title em {
+		font-style: normal;
+		position: relative;
+	}
+	.bb__title em::after {
+		content: '_';
+		animation: blink 1.1s steps(1) infinite;
+	}
+	.bb__meta {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		text-align: right;
+		line-height: 1.7;
+	}
+
+	/* Reusable CTA buttons */
+	.pro-btn {
+		cursor: pointer;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 700;
+		font-size: 0.92rem;
+		letter-spacing: -0.01em;
+		padding: 0.95rem 1.4rem;
+		border: 1px solid #ffe300;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition:
+			transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+			box-shadow 0.25s,
+			background 0.2s,
+			color 0.2s,
+			border-color 0.2s;
+		text-decoration: none;
+	}
+	.pro-btn--primary {
+		background: #ffe300;
+		color: #0a0a0f;
+		box-shadow: 6px 6px 0 #f4f1ea;
+	}
+	.pro-btn--primary:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #f4f1ea;
+	}
+	.pro-btn--primary-on-paper {
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.pro-btn--primary-on-paper:hover {
+		box-shadow: 9px 9px 0 #0a0a0f;
+	}
+	.pro-btn--ghost {
+		background: transparent;
+		color: #f4f1ea;
+		border-color: #2c2c36;
+		box-shadow: 6px 6px 0 #2c2c36;
+	}
+	.pro-btn--ghost:hover {
+		border-color: #ffe300;
+		color: #ffe300;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
+	}
+	.pro-btn--ghost-on-paper {
+		color: #0a0a0f;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.pro-btn--ghost-on-paper:hover {
+		background: #0a0a0f;
+		color: #ffe300;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
+	}
+</style>
+
+<!-- ============== HERO ============== -->
+<style>
+	.pro-hero {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			rgba(255, 255, 255, 0.06) 1px,
+			transparent 0
+		);
+		background-size: 22px 22px;
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-hero .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-hero .bb__eyebrow {
+		color: #ffe300;
+	}
+	.pro-hero .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.pro-hero .bb__title {
+		color: #f4f1ea;
+		max-width: 18ch;
+	}
+	.pro-hero .bb__title em {
+		color: #ffe300;
+	}
+	.pro-hero .bb__meta {
+		color: #8a8a96;
+	}
+	.pro-hero .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+
+	.pro-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		gap: clamp(1.5rem, 4vw, 4rem);
+		align-items: center;
+	}
+
+	.pro-hero__tags {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin-bottom: 1.4rem;
+	}
+	.pro-hero__tags span {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		border: 1px solid #4d4732;
+		color: #ffe300;
+	}
+
+	.pro-hero__lede {
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+		line-height: 1.55;
+		color: #b9b9c4;
+		margin: 1.4rem 0 1.6rem;
+		max-width: 54ch;
+	}
+	.pro-hero__lede b {
+		color: #f4f1ea;
+		font-weight: 500;
+		background: rgba(255, 227, 0, 0.08);
+		padding: 0 4px;
+	}
+
+	.pro-hero__cta {
+		display: flex;
+		gap: 0.8rem;
+		flex-wrap: wrap;
+		margin-top: 0.4rem;
+	}
+
+	/* Receipt visual on the right */
+	.pro-receipt {
+		background: #f4f1ea;
+		color: #0a0a0f;
+		border: 1px solid #0a0a0f;
+		box-shadow: 12px 12px 0 #ffe300;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		padding: 0;
+		transform: rotate(0.8deg);
+		max-width: 460px;
+		margin-left: auto;
+		width: 100%;
+	}
+	.pro-receipt__bar {
+		background: #0a0a0f;
+		color: #ffe300;
+		padding: 0.55rem 0.9rem;
+		font-size: 0.7rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.pro-receipt__bar .dots {
+		display: inline-flex;
+		gap: 5px;
+		margin-right: 8px;
+	}
+	.pro-receipt__bar .dots span {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: #ff5a36;
+	}
+	.pro-receipt__bar .dots span:nth-child(2) {
+		background: #ffe300;
+	}
+	.pro-receipt__bar .dots span:nth-child(3) {
+		background: #b9b9c4;
+	}
+	.pro-receipt__bar .left {
+		display: flex;
+		align-items: center;
+		color: #b9b9c4;
+	}
+	.pro-receipt__body {
+		padding: 1rem 1.2rem 1.2rem;
+	}
+	.pro-receipt__row {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.42rem 0;
+		border-bottom: 1px dashed rgba(10, 10, 15, 0.25);
+		font-size: 0.84rem;
+	}
+	.pro-receipt__row span:last-child {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+	.pro-receipt__row.is-mute {
+		color: #6a6a72;
+	}
+	.pro-receipt__row.is-mute span:last-child {
+		color: #6a6a72;
+	}
+	.pro-receipt__total {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: 0.85rem 0 0.2rem;
+		margin-top: 0.3rem;
+		border-top: 1px solid #0a0a0f;
+		font-weight: 800;
+	}
+	.pro-receipt__total span:first-child {
+		font-size: 0.78rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+	.pro-receipt__total b {
+		background: #ffe300;
+		padding: 0 6px;
+		font-size: 1.45rem;
+		letter-spacing: -0.02em;
+	}
+	.pro-receipt__foot {
+		margin-top: 0.7rem;
+		text-align: center;
+		font-size: 0.66rem;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: #555;
+	}
+
+	@media (max-width: 880px) {
+		.pro-hero__grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+		.pro-receipt {
+			transform: rotate(0);
+			margin: 0 auto;
+		}
+	}
+	@media (max-width: 480px) {
+		.pro-hero__cta {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.pro-hero__cta .pro-btn {
+			width: 100%;
+			justify-content: center;
+			box-sizing: border-box;
+		}
+	}
+</style>
+
+<section class="bb pro-hero" aria-labelledby="pro-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">PRO // unlock</div>
+			<h1 class="bb__title" id="pro-title">Ship without <em>limits</em></h1>
+		</div>
+		<div class="bb__meta">
+			<div>$4/month · annual + lifetime</div>
+			<div><b>$ webmaker</b> --pro</div>
+		</div>
+	</header>
+
+	<div class="pro-hero__grid">
+		<div>
+			<div class="pro-hero__tags">
+				<span>$4/mo</span>
+				<span>30-day refund</span>
+				<span>cancel anytime</span>
+				<span>lifetime available</span>
+			</div>
+			<p class="pro-hero__lede">
+				The free plan is generous. <b>PRO removes the ceiling</b> — unlimited
+				creations, cloud asset hosting, host real-time collab sessions, and
+				never see another ad. Pay monthly, yearly, or once for life. Same
+				editor, more rope.
+			</p>
+			<div class="pro-hero__cta">
+				<a class="pro-btn pro-btn--primary" href="/create/">
+					Go PRO
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3"
+					>
+						<path d="M5 12h14M12 5l7 7-7 7" />
+					</svg>
+				</a>
+				<a class="pro-btn pro-btn--ghost" href="#features">
+					See what's included
+				</a>
+			</div>
+		</div>
+
+		<aside class="pro-receipt" aria-hidden="true">
+			<div class="pro-receipt__bar">
+				<span class="left"
+					><span class="dots"><span></span><span></span><span></span></span>
+					receipt.txt</span
+				>
+				<span>WEBMAKER/PRO</span>
+			</div>
+			<div class="pro-receipt__body">
+				<div class="pro-receipt__row">
+					<span>unlimited public</span><span>++</span>
+				</div>
+				<div class="pro-receipt__row">
+					<span>unlimited files mode</span><span>++</span>
+				</div>
+				<div class="pro-receipt__row">
+					<span>cloud asset hosting</span><span>5 GB</span>
+				</div>
+				<div class="pro-receipt__row">
+					<span>host collab sessions</span><span>++</span>
+				</div>
+				<div class="pro-receipt__row"><span>no ads</span><span>++</span></div>
+				<div class="pro-receipt__row">
+					<span>priority support</span><span>++</span>
+				</div>
+				<div class="pro-receipt__total">
+					<span>total / mo</span>
+					<b>$4.00</b>
+				</div>
+				<div class="pro-receipt__foot">— refund within 30 days —</div>
+			</div>
+		</aside>
+	</div>
+</section>
+
+<!-- ============== FEATURE SECTIONS (shared scaffolding) ============== -->
+<style>
+	.pro-feat-sec {
+		border-bottom: 1px solid;
+	}
+	.pro-feat-sec--dark {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 0
+		);
+		background-size: 22px 22px;
+		border-bottom-color: #2a2a33;
+	}
+	.pro-feat-sec--paper {
+		background: #f4f1ea;
+		color: #0a0a0f;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			transparent 0 18px,
+			rgba(10, 10, 15, 0.025) 18px 19px
+		);
+		border-bottom-color: #0a0a0f;
+	}
+	.pro-feat-sec--dark .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-feat-sec--paper .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pro-feat-sec--dark .bb__eyebrow {
+		color: #ffe300;
+	}
+	.pro-feat-sec--dark .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.pro-feat-sec--paper .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.pro-feat-sec--paper .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.pro-feat-sec--dark .bb__title {
+		color: #f4f1ea;
+	}
+	.pro-feat-sec--dark .bb__title em {
+		color: #ffe300;
+	}
+	.pro-feat-sec--paper .bb__title em {
+		color: #0a0a0f;
+	}
+	.pro-feat-sec--paper .bb__title em::after {
+		color: #0a0a0f;
+	}
+	.pro-feat-sec--dark .bb__meta {
+		color: #8a8a96;
+	}
+	.pro-feat-sec--dark .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+	.pro-feat-sec--paper .bb__meta {
+		color: #555;
+	}
+	.pro-feat-sec--paper .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+
+	.pro-feat-sec__grid {
+		display: flex;
+		gap: clamp(1.8rem, 4vw, 4rem);
+		align-items: center;
+	}
+	.pro-feat-sec--reverse .pro-feat-sec__grid {
+		flex-direction: row-reverse;
+	}
+	.pro-feat-sec__copy,
+	.pro-feat-sec__visual {
+		flex: 1 1 0;
+		min-width: 0;
+	}
+	.pro-feat-sec__lede {
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: clamp(1.05rem, 1.3vw, 1.18rem);
+		line-height: 1.55;
+		margin: 0 0 1.4rem;
+		max-width: 50ch;
+	}
+	.pro-feat-sec--dark .pro-feat-sec__lede {
+		color: #b9b9c4;
+	}
+	.pro-feat-sec--dark .pro-feat-sec__lede b {
+		color: #f4f1ea;
+		background: rgba(255, 227, 0, 0.1);
+		padding: 0 4px;
+		font-weight: 500;
+	}
+	.pro-feat-sec--paper .pro-feat-sec__lede {
+		color: #44444a;
+	}
+	.pro-feat-sec--paper .pro-feat-sec__lede b {
+		color: #0a0a0f;
+		background: rgba(255, 227, 0, 0.55);
+		padding: 0 4px;
+		font-weight: 500;
+	}
+	.pro-feat-sec__diff {
+		display: flex;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.74rem;
+		letter-spacing: 0.04em;
+		margin-top: 0.4rem;
+	}
+	.pro-feat-sec__diff > span {
+		display: inline-flex;
+		gap: 0.5rem;
+		padding: 0.4rem 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+	}
+	.pro-feat-sec__diff .is-free {
+		border: 1px solid currentColor;
+		color: #8a8a96;
+		text-decoration: line-through;
+	}
+	.pro-feat-sec--paper .pro-feat-sec__diff .is-free {
+		color: #6a6a72;
+		border-color: rgba(10, 10, 15, 0.4);
+	}
+	.pro-feat-sec__diff .is-pro {
+		background: #ffe300;
+		color: #0a0a0f;
+		border: 1px solid #ffe300;
+		font-weight: 700;
+	}
+	.pro-feat-sec--paper .pro-feat-sec__diff .is-pro {
+		border-color: #0a0a0f;
+	}
+
+	/* Shared visual panel */
+	.pro-vis {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		border: 1px solid;
+		max-width: 480px;
+		width: 100%;
+		margin: 0 auto;
+		font-size: 0.84rem;
+	}
+	.pro-feat-sec--dark .pro-vis {
+		background: #111118;
+		border-color: #23232c;
+		box-shadow: 10px 10px 0 #ffe300;
+		color: #f4f1ea;
+	}
+	.pro-feat-sec--paper .pro-vis {
+		background: #f4f1ea;
+		border-color: #0a0a0f;
+		box-shadow: 10px 10px 0 #0a0a0f;
+		color: #0a0a0f;
+	}
+	.pro-vis__bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.55rem 0.9rem;
+		font-size: 0.68rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		background: #0a0a0f;
+		color: #ffe300;
+		border-bottom: 1px solid;
+	}
+	.pro-feat-sec--dark .pro-vis__bar {
+		border-bottom-color: #23232c;
+	}
+	.pro-feat-sec--paper .pro-vis__bar {
+		border-bottom-color: #0a0a0f;
+	}
+	.pro-vis__bar .left,
+	.pro-vis__bar .right {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+	.pro-vis__bar .right {
+		color: #b9b9c4;
+	}
+	.pro-vis__body {
+		padding: 1rem;
+	}
+
+	.pro-vis__row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.8rem;
+		padding: 0.4rem 0;
+		border-bottom: 1px dashed;
+		font-size: 0.82rem;
+	}
+	.pro-feat-sec--dark .pro-vis__row {
+		border-bottom-color: rgba(255, 255, 255, 0.08);
+	}
+	.pro-feat-sec--paper .pro-vis__row {
+		border-bottom-color: rgba(10, 10, 15, 0.15);
+	}
+	.pro-vis__row:last-child {
+		border-bottom: none;
+	}
+	.pro-vis__row--more {
+		color: #ffe300;
+	}
+	.pro-feat-sec--paper .pro-vis__row--more {
+		color: #0a0a0f;
+		background: #ffe300;
+		margin: 0.4rem -1rem -1rem;
+		padding: 0.55rem 1rem;
+		border: none;
+		font-weight: 700;
+		justify-content: center;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-size: 0.74rem;
+	}
+	.pro-feat-sec--dark .pro-vis__row--more {
+		background: #ffe300;
+		color: #0a0a0f;
+		margin: 0.4rem -1rem -1rem;
+		padding: 0.55rem 1rem;
+		border: none;
+		font-weight: 700;
+		justify-content: center;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-size: 0.74rem;
+	}
+	.pro-vis__idx {
+		display: inline-block;
+		min-width: 2ch;
+		font-weight: 700;
+	}
+	.pro-feat-sec--dark .pro-vis__idx {
+		color: #8a8a96;
+	}
+	.pro-feat-sec--paper .pro-vis__idx {
+		color: #6a6a72;
+	}
+	.pro-vis__name {
+		flex: 1;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.pro-vis__tag {
+		font-size: 0.68rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		padding: 1px 6px;
+		border: 1px solid currentColor;
+		flex-shrink: 0;
+	}
+	.pro-feat-sec--dark .pro-vis__tag {
+		color: #b9b9c4;
+		border-color: #2a2a33;
+	}
+	.pro-feat-sec--paper .pro-vis__tag {
+		color: #6a6a72;
+		border-color: rgba(10, 10, 15, 0.3);
+	}
+	.pro-vis__tag--live {
+		color: #ffe300 !important;
+		border-color: #ffe300 !important;
+	}
+
+	@media (max-width: 880px) {
+		.pro-feat-sec__grid,
+		.pro-feat-sec--reverse .pro-feat-sec__grid {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 2.5rem;
+		}
+		.pro-vis {
+			margin: 0 auto;
+		}
+	}
+</style>
+
+<!-- ============== FEATURE 01 · PUBLIC ============== -->
+<section
+	class="bb pro-feat-sec pro-feat-sec--paper"
+	id="features"
+	aria-labelledby="feat-01-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 01 OF 06</div>
+			<h2 class="bb__title" id="feat-01-title">
+				Ship as many <em>public links</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>--unlimited</div>
+			<div><b>$ webmaker</b> share *</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				Every creation can be shared via a public URL. Free gives you
+				<b>one</b> — fine for a single demo, painful the moment you want a
+				second. PRO removes the cap entirely. Ship as many demos, prototypes and
+				side projects as you want, all with their own link.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE 1 public</span>
+				<span class="is-pro">PRO ∞</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># share/</span>
+					<span class="right">PUBLIC LINKS</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__row">
+						<span class="pro-vis__idx">01</span>
+						<span class="pro-vis__name">todo-app.html</span>
+						<span class="pro-vis__tag pro-vis__tag--live">live</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__idx">02</span>
+						<span class="pro-vis__name">portfolio-v3.html</span>
+						<span class="pro-vis__tag pro-vis__tag--live">live</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__idx">03</span>
+						<span class="pro-vis__name">css-grid-puzzle.html</span>
+						<span class="pro-vis__tag pro-vis__tag--live">live</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__idx">04</span>
+						<span class="pro-vis__name">prototype-foo.html</span>
+						<span class="pro-vis__tag pro-vis__tag--live">live</span>
+					</div>
+					<div class="pro-vis__row pro-vis__row--more">
+						<span>+ unlimited more...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FEATURE 02 · FILES ============== -->
+<style>
+	.pro-vis__tree {
+		font-size: 0.82rem;
+		line-height: 1.7;
+		white-space: pre;
+		overflow-x: auto;
+	}
+	.pro-vis__tree b {
+		color: #ffe300;
+		font-weight: 700;
+	}
+	.pro-feat-sec--paper .pro-vis__tree b {
+		color: #0a0a0f;
+	}
+	.pro-vis__tree .muted {
+		color: #6a6a72;
+	}
+</style>
+
+<section
+	class="bb pro-feat-sec pro-feat-sec--dark pro-feat-sec--reverse"
+	aria-labelledby="feat-02-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 02 OF 06</div>
+			<h2 class="bb__title" id="feat-02-title">
+				A real <em>file tree</em>, unlimited
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>--mode=fs</div>
+			<div><b>$ ls</b> -R ~/projects</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				Files mode swaps the 3-pane editor for a full file tree — folders,
+				multiple files per project, an IDE-style sidebar. Free caps you at
+				<b>two projects</b>. PRO lets you spin up as many as you want.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE 2 projects</span>
+				<span class="is-pro">PRO ∞</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># files mode</span>
+					<span class="right">my-app/</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__tree">
+						<b>my-app/</b> ├─ index.html ├─ <b>styles/</b> │ ├─ reset.css │ └─
+						main.css ├─ <b>scripts/</b> │ ├─ app.js │ └─ utils.js └─
+						<b>assets/</b> ├─ logo.svg └─ hero.png
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FEATURE 03 · ASSETS ============== -->
+<style>
+	.pro-vis__meter {
+		height: 14px;
+		background: rgba(10, 10, 15, 0.1);
+		border: 1px solid currentColor;
+		margin: 0.4rem 0 0.8rem;
+		position: relative;
+	}
+	.pro-feat-sec--dark .pro-vis__meter {
+		background: rgba(255, 255, 255, 0.06);
+	}
+	.pro-vis__meter-fill {
+		height: 100%;
+		background: #ffe300;
+		display: block;
+	}
+	.pro-vis__caption {
+		font-size: 0.7rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0.2rem;
+	}
+</style>
+
+<section
+	class="bb pro-feat-sec pro-feat-sec--paper"
+	aria-labelledby="feat-03-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 03 OF 06</div>
+			<h2 class="bb__title" id="feat-03-title">
+				Host assets in the <em>cloud</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>--cloud=5GB</div>
+			<div><b>$ webmaker</b> upload assets/*</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				Stop juggling Imgur, Cloudinary or your own S3 bucket. PRO gives you
+				<b>5 GB of cloud asset storage</b> — up to 1 MB per file — directly
+				inside Web Maker. Available across devices, fast to drop into any
+				creation.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE local only</span>
+				<span class="is-pro">PRO local + 5 GB cloud</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># cloud storage</span>
+					<span class="right">1.2 / 5.0 GB</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__caption">
+						<span>used</span>
+						<span>24%</span>
+					</div>
+					<div class="pro-vis__meter">
+						<span class="pro-vis__meter-fill" style="width: 24%"></span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__name">hero.png</span>
+						<span class="pro-vis__tag">348 KB</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__name">bg-grain.svg</span>
+						<span class="pro-vis__tag">12 KB</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__name">logo.svg</span>
+						<span class="pro-vis__tag">8 KB</span>
+					</div>
+					<div class="pro-vis__row">
+						<span class="pro-vis__name">helvetica.woff2</span>
+						<span class="pro-vis__tag">184 KB</span>
+					</div>
+					<div class="pro-vis__row pro-vis__row--more">
+						<span>+ drop files here</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FEATURE 04 · COLLAB ============== -->
+<style>
+	.pro-vis__url {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		padding: 0.55rem 0.7rem;
+		border: 1px dashed currentColor;
+		font-size: 0.8rem;
+		margin-bottom: 0.7rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.5rem;
+		opacity: 0.9;
+	}
+	.pro-vis__url b {
+		color: #ffe300;
+		font-weight: 700;
+	}
+	.pro-feat-sec--paper .pro-vis__url b {
+		color: #0a0a0f;
+		background: #ffe300;
+		padding: 0 4px;
+	}
+	.pro-vis__cursor {
+		width: 12px;
+		height: 12px;
+		display: inline-block;
+		flex-shrink: 0;
+		clip-path: polygon(0 0, 100% 50%, 50% 60%, 60% 100%, 0 0);
+	}
+	.pro-vis__row--collab {
+		gap: 0.7rem;
+	}
+	.pro-vis__row--collab .pro-vis__name {
+		font-size: 0.84rem;
+	}
+	.pro-vis__tag--host {
+		background: #ffe300 !important;
+		color: #0a0a0f !important;
+		border-color: #ffe300 !important;
+		font-weight: 700;
+	}
+</style>
+
+<section
+	class="bb pro-feat-sec pro-feat-sec--dark pro-feat-sec--reverse"
+	aria-labelledby="feat-04-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 04 OF 06</div>
+			<h2 class="bb__title" id="feat-04-title">
+				Host a <em>collab session</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>--host</div>
+			<div><b>$ webmaker</b> collab --start</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				Real-time multi-user editing — built for technical interviews, mob
+				sessions, classroom demos, and pair programming with a friend at 2am.
+				Free users can <b>join</b> a session. Only PRO can <b>host</b> one.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE join only</span>
+				<span class="is-pro">PRO host &amp; join</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># collab session</span>
+					<span class="right">3 connected</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__url">
+						<span>webmaker.app/c/<b>k7m9-x2</b></span>
+						<span class="pro-vis__tag">share</span>
+					</div>
+					<div class="pro-vis__row pro-vis__row--collab">
+						<span class="pro-vis__cursor" style="background: #ffe300"></span>
+						<span class="pro-vis__name">you</span>
+						<span class="pro-vis__tag pro-vis__tag--host">HOST</span>
+					</div>
+					<div class="pro-vis__row pro-vis__row--collab">
+						<span class="pro-vis__cursor" style="background: #ff5a36"></span>
+						<span class="pro-vis__name">alex@team</span>
+						<span class="pro-vis__tag">guest</span>
+					</div>
+					<div class="pro-vis__row pro-vis__row--collab">
+						<span class="pro-vis__cursor" style="background: #5ab4ff"></span>
+						<span class="pro-vis__name">prerna@team</span>
+						<span class="pro-vis__tag">guest</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FEATURE 05 · ADS ============== -->
+<style>
+	.pro-vis__preview {
+		background: repeating-linear-gradient(
+			135deg,
+			rgba(10, 10, 15, 0.04) 0 8px,
+			rgba(10, 10, 15, 0.08) 8px 16px
+		);
+		border: 1px solid currentColor;
+		padding: 2.6rem 1rem;
+		text-align: center;
+		font-size: 0.74rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		opacity: 0.85;
+	}
+	.pro-feat-sec--dark .pro-vis__preview {
+		background: repeating-linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.04) 0 8px,
+			rgba(255, 255, 255, 0.08) 8px 16px
+		);
+	}
+	.pro-vis__ad-slot {
+		margin-top: 0.8rem;
+		padding: 1.1rem 1rem;
+		border: 1px dashed #ff5a36;
+		color: #ff5a36;
+		text-align: center;
+		font-size: 0.74rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		position: relative;
+		overflow: hidden;
+	}
+	.pro-vis__ad-slot::before,
+	.pro-vis__ad-slot::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom right,
+			transparent calc(50% - 1px),
+			#ff5a36 calc(50% - 1px),
+			#ff5a36 calc(50% + 1px),
+			transparent calc(50% + 1px)
+		);
+		pointer-events: none;
+	}
+	.pro-vis__ad-slot::after {
+		background: linear-gradient(
+			to bottom left,
+			transparent calc(50% - 1px),
+			#ff5a36 calc(50% - 1px),
+			#ff5a36 calc(50% + 1px),
+			transparent calc(50% + 1px)
+		);
+	}
+	.pro-vis__ad-slot span {
+		position: relative;
+		z-index: 1;
+		background: inherit;
+		padding: 0 8px;
+	}
+	.pro-feat-sec--paper .pro-vis__ad-slot span {
+		background: #f4f1ea;
+	}
+	.pro-feat-sec--dark .pro-vis__ad-slot span {
+		background: #111118;
+	}
+	.pro-vis__removed-tag {
+		display: inline-block;
+		margin-top: 0.7rem;
+		font-size: 0.7rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: #ffe300;
+		background: #0a0a0f;
+		padding: 4px 8px;
+		font-weight: 700;
+	}
+	.pro-feat-sec--paper .pro-vis__removed-tag {
+		background: #0a0a0f;
+		color: #ffe300;
+	}
+</style>
+
+<section
+	class="bb pro-feat-sec pro-feat-sec--paper"
+	aria-labelledby="feat-05-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 05 OF 06</div>
+			<h2 class="bb__title" id="feat-05-title">No ads, <em>ever</em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>--ads=off</div>
+			<div><b>$ webmaker</b> --no-ads</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				Web Maker shows respectful, developer-targeted ads to free users to keep
+				the lights on. PRO removes them entirely —
+				<b>just the editor, your code, and the preview</b>. Nothing else
+				competing for screen space or attention.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE shown</span>
+				<span class="is-pro">PRO removed</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># preview</span>
+					<span class="right">--no-ads</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__preview">your preview</div>
+					<div class="pro-vis__ad-slot">
+						<span>ad slot</span>
+					</div>
+					<div style="text-align: center">
+						<span class="pro-vis__removed-tag">— removed on PRO —</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FEATURE 06 · SUPPORT ============== -->
+<style>
+	.pro-vis__msg {
+		padding: 0.7rem 0.85rem;
+		border: 1px solid currentColor;
+		margin-bottom: 0.55rem;
+		max-width: 88%;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+	}
+	.pro-feat-sec--dark .pro-vis__msg {
+		border-color: #2a2a33;
+	}
+	.pro-feat-sec--paper .pro-vis__msg {
+		border-color: rgba(10, 10, 15, 0.3);
+	}
+	.pro-vis__msg--in {
+		background: #ffe300;
+		color: #0a0a0f;
+		border-color: #ffe300 !important;
+		margin-right: auto;
+	}
+	.pro-vis__msg--out {
+		margin-left: auto;
+		background: transparent;
+	}
+	.pro-vis__msg-head {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.66rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		opacity: 0.7;
+		margin-bottom: 0.35rem;
+	}
+	.pro-vis__msg-head b {
+		opacity: 1;
+		font-weight: 700;
+	}
+	.pro-vis__msg-body {
+		font-size: 0.86rem;
+		line-height: 1.45;
+	}
+	.pro-vis__msg-time {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.66rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		opacity: 0.6;
+		margin-top: 0.4rem;
+	}
+</style>
+
+<section
+	class="bb pro-feat-sec pro-feat-sec--dark pro-feat-sec--reverse"
+	aria-labelledby="feat-06-title"
+>
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FEATURE // 06 OF 06</div>
+			<h2 class="bb__title" id="feat-06-title">
+				Priority support, <em>direct</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>--priority</div>
+			<div><b>$ webmaker</b> support --pro</div>
+		</div>
+	</header>
+
+	<div class="pro-feat-sec__grid">
+		<div class="pro-feat-sec__copy">
+			<p class="pro-feat-sec__lede">
+				No tier-1 ticket queues, no canned replies. PRO support comes
+				<b>directly from the person who built Web Maker</b>. Got a bug, a
+				question, or a feature request? It lands in my inbox and I reply fast.
+			</p>
+			<div class="pro-feat-sec__diff">
+				<span class="is-free">FREE community</span>
+				<span class="is-pro">PRO direct &amp; fast</span>
+			</div>
+		</div>
+		<div class="pro-feat-sec__visual">
+			<div class="pro-vis" aria-hidden="true">
+				<div class="pro-vis__bar">
+					<span class="left"># dm.thread</span>
+					<span class="right">● online</span>
+				</div>
+				<div class="pro-vis__body">
+					<div class="pro-vis__msg pro-vis__msg--out">
+						<div class="pro-vis__msg-head">you</div>
+						<div class="pro-vis__msg-body">
+							Hey — getting an error compiling SCSS on Safari?
+						</div>
+						<div class="pro-vis__msg-time">1 hour ago</div>
+					</div>
+					<div class="pro-vis__msg pro-vis__msg--in">
+						<div class="pro-vis__msg-head"><b>Kushagra</b> · maker</div>
+						<div class="pro-vis__msg-body">
+							Got it. Reproduced — pushing a fix this evening, will ping you
+							when it's live.
+						</div>
+						<div class="pro-vis__msg-time">4 min ago</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== DIFF: FREE vs PRO ============== -->
+<style>
+	.pro-diff {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: linear-gradient(180deg, #0a0a0f 0%, #0e0e14 100%),
+			radial-gradient(
+				circle at 1px 1px,
+				rgba(255, 255, 255, 0.05) 1px,
+				transparent 0
+			);
+		background-size:
+			100% 100%,
+			22px 22px;
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-diff .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-diff .bb__eyebrow {
+		color: #ffe300;
+	}
+	.pro-diff .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.pro-diff .bb__title {
+		color: #f4f1ea;
+	}
+	.pro-diff .bb__title em {
+		color: #ffe300;
+	}
+	.pro-diff .bb__meta {
+		color: #8a8a96;
+	}
+	.pro-diff .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+
+	.pro-diff__file {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		color: #8a8a96;
+		background: #111118;
+		border: 1px solid #23232c;
+		padding: 0.7rem 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.pro-diff__file::before {
+		content: '';
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #ff5a36;
+		box-shadow:
+			16px 0 0 #ffe300,
+			32px 0 0 #b9b9c4;
+		margin-right: 38px;
+	}
+	.pro-diff__file b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+	.pro-diff__table {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		background: #111118;
+		border: 1px solid #23232c;
+		border-top: none;
+	}
+	.pro-diff__row {
+		display: grid;
+		grid-template-columns: minmax(160px, 220px) 1fr 1fr;
+		border-top: 1px solid #23232c;
+	}
+	.pro-diff__row:first-child {
+		border-top: none;
+		background: #0e0e14;
+	}
+	.pro-diff__row:first-child > div {
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: #8a8a96;
+		padding: 0.7rem 1rem;
+	}
+	.pro-diff__row > div {
+		padding: 1.05rem 1rem;
+		font-size: 0.86rem;
+		line-height: 1.5;
+	}
+	.pro-diff__dim {
+		color: #f4f1ea;
+		border-right: 1px solid #23232c;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.pro-diff__dim::before {
+		content: '#';
+		color: #ffe300;
+	}
+	.pro-diff__plus {
+		color: #ffe300;
+		border-right: 1px solid #23232c;
+		background: rgba(255, 227, 0, 0.04);
+		display: flex;
+		gap: 0.7rem;
+		align-items: flex-start;
+	}
+	.pro-diff__plus::before {
+		content: '+';
+		color: #ffe300;
+		font-weight: 700;
+	}
+	.pro-diff__minus {
+		color: #b9b9c4;
+		display: flex;
+		gap: 0.7rem;
+		align-items: flex-start;
+	}
+	.pro-diff__minus::before {
+		content: '-';
+		color: #ff5a36;
+		font-weight: 700;
+	}
+
+	@media (max-width: 760px) {
+		.pro-diff__row {
+			grid-template-columns: 1fr;
+		}
+		.pro-diff__dim,
+		.pro-diff__plus {
+			border-right: none;
+			border-bottom: 1px solid #23232c;
+		}
+		.pro-diff__row:first-child {
+			display: none;
+		}
+		.pro-diff__plus::before {
+			content: '+ PRO ';
+		}
+		.pro-diff__minus::before {
+			content: '- FREE ';
+		}
+	}
+</style>
+
+<section class="bb pro-diff" aria-labelledby="diff-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">DIFF // free vs pro</div>
+			<h2 class="bb__title" id="diff-title">What <em>changes</em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>line-by-line, what unlocks</div>
+			<div><b>$ git diff</b> free..pro</div>
+		</div>
+	</header>
+
+	<div class="pro-diff__file"><b>plans.diff</b> · 6 dimensions changed</div>
+	<div class="pro-diff__table" role="table" aria-label="Free vs Pro comparison">
+		<div class="pro-diff__row" role="row">
+			<div role="columnheader">dimension</div>
+			<div role="columnheader">+ PRO</div>
+			<div role="columnheader">- FREE</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">public creations</div>
+			<div class="pro-diff__plus">unlimited</div>
+			<div class="pro-diff__minus">1</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">file-mode projects</div>
+			<div class="pro-diff__plus">unlimited</div>
+			<div class="pro-diff__minus">2</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">asset hosting</div>
+			<div class="pro-diff__plus">local + 5 GB cloud</div>
+			<div class="pro-diff__minus">local only</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">collab sessions</div>
+			<div class="pro-diff__plus">host &amp; join</div>
+			<div class="pro-diff__minus">join only</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">ads</div>
+			<div class="pro-diff__plus">removed</div>
+			<div class="pro-diff__minus">shown</div>
+		</div>
+		<div class="pro-diff__row" role="row">
+			<div class="pro-diff__dim">support</div>
+			<div class="pro-diff__plus">priority, direct</div>
+			<div class="pro-diff__minus">community</div>
+		</div>
+	</div>
+</section>
+
+<!-- ============== PRICING ============== -->
+<style>
+	.pro-pricing {
+		background: #f4f1ea;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			transparent 0 18px,
+			rgba(10, 10, 15, 0.025) 18px 19px
+		);
+	}
+	.pro-pricing .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pro-pricing .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.pro-pricing .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.pro-pricing .bb__title em {
+		color: #0a0a0f;
+	}
+	.pro-pricing .bb__meta {
+		color: #555;
+	}
+	.pro-pricing .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+
+	.pro-pricing__card {
+		background: #f4f1ea;
+		border: 1px solid #0a0a0f;
+		box-shadow: 12px 12px 0 #0a0a0f;
+		max-width: 720px;
+		margin: 0 auto;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+	}
+	.pro-pricing__bar {
+		background: #0a0a0f;
+		color: #ffe300;
+		padding: 0.7rem 1.2rem;
+		font-size: 0.72rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.pro-pricing__inner {
+		padding: clamp(1.6rem, 3vw, 2.5rem);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+		gap: clamp(1.2rem, 3vw, 2.5rem);
+		align-items: start;
+	}
+	.pro-pricing__price {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		letter-spacing: -0.04em;
+	}
+	.pro-pricing__price .currency {
+		font-size: 1.6rem;
+		font-weight: 800;
+		color: #0a0a0f;
+	}
+	.pro-pricing__price .num {
+		font-size: clamp(4.5rem, 9vw, 7rem);
+		font-weight: 800;
+		color: #0a0a0f;
+		line-height: 0.85;
+		background: #ffe300;
+		padding: 0.05em 0.18em 0.05em;
+		display: inline-block;
+	}
+	.pro-pricing__price .per {
+		font-size: 1rem;
+		font-weight: 500;
+		color: #555;
+		margin-left: 0.4rem;
+	}
+	.pro-pricing__sub {
+		margin-top: 0.9rem;
+		font-size: 0.85rem;
+		color: #555;
+		line-height: 1.5;
+	}
+	.pro-pricing__sub a {
+		color: #0a0a0f;
+		text-decoration: underline;
+		text-decoration-color: #ffe300;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+	.pro-pricing__sub a:hover {
+		background: #0a0a0f;
+		color: #ffe300;
+		text-decoration: none;
+	}
+	.pro-pricing__terms {
+		margin-top: 1.2rem;
+		display: flex;
+		gap: 0.4rem;
+		flex-wrap: wrap;
+	}
+	.pro-pricing__terms span {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		padding: 4px 8px;
+		border: 1px solid #0a0a0f;
+		color: #0a0a0f;
+		background: #f4f1ea;
+	}
+	.pro-pricing__terms span.is-strong {
+		background: #0a0a0f;
+		color: #ffe300;
+		border-color: #0a0a0f;
+	}
+
+	.pro-pricing__list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+	.pro-pricing__list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.7rem;
+		font-size: 0.94rem;
+		color: #0a0a0f;
+		line-height: 1.4;
+	}
+	.pro-pricing__list svg {
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+	.pro-pricing__action {
+		margin-top: 1.4rem;
+		display: flex;
+		gap: 0.7rem;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.pro-pricing__refund {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.7rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: #555;
+	}
+	.pro-pricing__refund b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+
+	@media (max-width: 760px) {
+		.pro-pricing__inner {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<section class="bb pro-pricing" aria-labelledby="pricing-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">PRICING // one plan</div>
+			<h2 class="bb__title" id="pricing-title">
+				One plan. <em>Pick your term</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>monthly · annual · lifetime</div>
+			<div><b>$ cat</b> pricing.json</div>
+		</div>
+	</header>
+
+	<div class="pro-pricing__card">
+		<div class="pro-pricing__bar">
+			<span># pricing.json</span>
+			<span>WEBMAKER/PRO</span>
+		</div>
+		<div class="pro-pricing__inner">
+			<div>
+				<div class="pro-pricing__price">
+					<span class="currency">$</span>
+					<span class="num">4</span>
+					<span class="per">/month</span>
+				</div>
+				<p class="pro-pricing__sub">
+					Annual and one-time <b>lifetime</b> pricing also available at
+					checkout. Same features either way.
+				</p>
+				<div class="pro-pricing__terms">
+					<span class="is-strong">monthly</span>
+					<span>annual</span>
+					<span>lifetime</span>
+				</div>
+				<div class="pro-pricing__action">
+					<a
+						class="pro-btn pro-btn--primary pro-btn--primary-on-paper"
+						href="/create/"
+					>
+						Go PRO
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="3"
+						>
+							<path d="M5 12h14M12 5l7 7-7 7" />
+						</svg>
+					</a>
+				</div>
+				<p class="pro-pricing__refund" style="margin-top: 0.9rem">
+					<b>30-day refund</b> if not satisfied
+				</p>
+			</div>
+
+			<ul class="pro-pricing__list" aria-label="Included with Pro">
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span><b>Unlimited</b> public creations</span>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span><b>Unlimited</b> file-mode projects</span>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span>Cloud asset hosting up to <b>5 GB</b></span>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span><b>Host</b> real-time multi-user collab sessions</span>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span><b>No ads</b>, ever</span>
+				</li>
+				<li>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#0a0a0f"
+						stroke-width="3"
+					>
+						<path d="M5 12l5 5L20 7" />
+					</svg>
+					<span><b>Priority support</b>, direct from the maker</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<style>
+	.pro-faq {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 0
+		);
+		background-size: 22px 22px;
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-faq .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pro-faq .bb__eyebrow {
+		color: #ffe300;
+	}
+	.pro-faq .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.pro-faq .bb__title {
+		color: #f4f1ea;
+	}
+	.pro-faq .bb__title em {
+		color: #ffe300;
+	}
+	.pro-faq .bb__meta {
+		color: #8a8a96;
+	}
+	.pro-faq .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+
+	.pro-faq__list {
+		border: 1px solid #23232c;
+		background: #111118;
+	}
+	.pro-faq__item {
+		border-top: 1px solid #23232c;
+	}
+	.pro-faq__item:first-child {
+		border-top: none;
+	}
+	.pro-faq__item summary {
+		list-style: none;
+		cursor: pointer;
+		padding: 1.1rem 1.3rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: #f4f1ea;
+		letter-spacing: -0.01em;
+		transition:
+			background 0.2s,
+			color 0.2s;
+	}
+	.pro-faq__item summary::-webkit-details-marker {
+		display: none;
+	}
+	.pro-faq__item summary::before {
+		content: '?';
+		color: #ffe300;
+		font-weight: 800;
+		margin-right: 0.6rem;
+		flex-shrink: 0;
+	}
+	.pro-faq__item summary::after {
+		content: '+';
+		color: #8a8a96;
+		font-size: 1.4rem;
+		font-weight: 400;
+		line-height: 1;
+		flex-shrink: 0;
+		margin-left: auto;
+		transition:
+			transform 0.2s,
+			color 0.2s;
+	}
+	.pro-faq__item[open] summary::after {
+		content: '−';
+		color: #ffe300;
+	}
+	.pro-faq__item summary:hover {
+		background: rgba(255, 227, 0, 0.04);
+	}
+	.pro-faq__item summary:hover::after {
+		color: #ffe300;
+	}
+	.pro-faq__body {
+		padding: 0 1.3rem 1.3rem 2.5rem;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: 0.92rem;
+		line-height: 1.6;
+		color: #b9b9c4;
+	}
+	.pro-faq__body p {
+		margin: 0 0 0.6rem;
+	}
+	.pro-faq__body p:last-child {
+		margin-bottom: 0;
+	}
+	.pro-faq__body a {
+		color: #ffe300;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+	.pro-faq__body code {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		background: #0a0a0f;
+		color: #ffe300;
+		padding: 0.1em 0.4em;
+		font-size: 0.88em;
+	}
+</style>
+
+<section class="bb pro-faq" aria-labelledby="faq-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">FAQ // 04</div>
+			<h2 class="bb__title" id="faq-title">Things people <em>ask</em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>before they upgrade</div>
+			<div><b>$ man</b> webmaker-pro</div>
+		</div>
+	</header>
+
+	<div class="pro-faq__list">
+		<details class="pro-faq__item">
+			<summary>How do annual and lifetime prices compare?</summary>
+			<div class="pro-faq__body">
+				<p>
+					Annual is a discount on monthly. Lifetime is a one-time payment that
+					never expires — pay once, own PRO for as long as Web Maker exists.
+					Exact prices are shown at checkout (LemonSqueezy).
+				</p>
+			</div>
+		</details>
+
+		<details class="pro-faq__item">
+			<summary>I use the Chrome extension. How do I upgrade?</summary>
+			<div class="pro-faq__body">
+				<p>
+					Checkout happens on the web app. From the extension, the
+					<code>Get PRO</code> button opens the web app — log in, complete
+					checkout, then come back to the extension and refresh. Your PRO status
+					syncs to the same account in both places.
+				</p>
+			</div>
+		</details>
+
+		<details class="pro-faq__item">
+			<summary>What payment methods are supported?</summary>
+			<div class="pro-faq__body">
+				<p>
+					Payments are processed by LemonSqueezy and accept all major credit
+					cards, plus PayPal, Apple Pay and Google Pay where available. VAT and
+					local taxes are handled automatically.
+				</p>
+			</div>
+		</details>
+
+		<details class="pro-faq__item">
+			<summary>Can I cancel anytime? What about refunds?</summary>
+			<div class="pro-faq__body">
+				<p>
+					Monthly and annual subscriptions cancel anytime — no lock-in. If
+					you're within 30 days of purchase and PRO didn't work out, email for a
+					full refund, no questions asked.
+				</p>
+				<p>
+					Have a question that's not on this page? Ping me on
+					<a href="https://discord.gg/cpYfafCJ5H" rel="external">Discord</a>
+					or
+					<a href="https://x.com/webmakerApp" rel="external">@webmakerApp</a>.
+				</p>
+			</div>
+		</details>
+	</div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<style>
+	.pro-final {
+		background: #ffe300;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pro-final .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pro-final .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.pro-final .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.pro-final .bb__title em {
+		color: #0a0a0f;
+	}
+	.pro-final .bb__meta {
+		color: #44444a;
+	}
+	.pro-final .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+	.pro-final__row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+	}
+	.pro-final__copy {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: clamp(1.1rem, 2vw, 1.45rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: #0a0a0f;
+		max-width: 28ch;
+		line-height: 1.25;
+	}
+	.pro-final .pro-btn {
+		background: #0a0a0f;
+		color: #ffe300;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.pro-final .pro-btn:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #0a0a0f;
+		background: #1a1a23;
+	}
+
+	@media (max-width: 600px) {
+		.pro-final__row {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<section class="bb pro-final" aria-labelledby="final-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">EXIT // 0</div>
+			<h2 class="bb__title" id="final-title">Ready to <em>ship</em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>$4/mo · 30-day refund</div>
+			<div><b>$ ./upgrade</b></div>
+		</div>
+	</header>
+
+	<div class="pro-final__row">
+		<p class="pro-final__copy">
+			Same editor you already love — without the ceiling.
+		</p>
+		<a class="pro-btn" href="/create/">
+			Go PRO
+			<svg
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="3"
+			>
+				<path d="M5 12h14M12 5l7 7-7 7" />
+			</svg>
+		</a>
+	</div>
+</section>
