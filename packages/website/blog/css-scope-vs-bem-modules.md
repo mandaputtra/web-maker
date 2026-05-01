@@ -2,7 +2,7 @@
 title: 'CSS @scope: the end of BEM (for real this time)'
 date: 2026-05-01
 description: 'A practical comparison of BEM, CSS Modules, and the new @scope at-rule. Refactor a real component three ways and see which one ships least code.'
-ogImage: /blog/images/og-scope-vs-bem.png
+ogImage: /images/blog/og-scope-vs-bem.png
 ---
 
 For 15 years we've been styling components by inventing naming conventions. BEM, OOCSS, SMACSS, CSS Modules, CSS-in-JS. All of them solved the same problem — "stop styles from leaking" — by working _around_ the cascade rather than working with it.
