@@ -2,7 +2,10 @@
 title: 'A CSS-only carousel with scroll-snap and sibling-index()'
 date: 2026-05-03
 description: 'Build a complete carousel — snapping track, native pagination dots, staggered entry animations — with zero JavaScript. Uses scroll-snap, ::scroll-marker, and the new sibling-index() function.'
+ogImage: /images/blog/og-css-carousel.jpg
 ---
+
+![CSS-only carousel](/images/blog/og-css-carousel.jpg)
 
 Carousels are a staple of "how much can you do without JavaScript" challenges. Until 2026 the answer was "almost everything except the dots." `scroll-snap` handled the snap-to-card behaviour. CSS could draw the dots. But updating the active dot as you scrolled? That needed a few lines of JS.
 
