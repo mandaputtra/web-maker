@@ -2,6 +2,7 @@
 title: 'Scroll-driven animations: the reading-progress bar in 10 lines of CSS'
 date: 2026-04-29
 description: 'Build a reading-progress bar, a parallax hero, and a section-reveal effect using only CSS scroll-driven animations. Zero IntersectionObserver, zero requestAnimationFrame.'
+ogImage: /images/blog/og-css-reading-progress-bar.jpg
 ---
 
 If you've ever wired up a reading-progress bar, you wrote roughly the same JavaScript: listen to `scroll`, calculate `scrollTop / (scrollHeight - clientHeight)`, set a `width` percentage. It's not hard, but it ran on every scroll frame and competed for the main thread.
