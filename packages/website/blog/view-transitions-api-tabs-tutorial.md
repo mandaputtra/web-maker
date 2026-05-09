@@ -5,8 +5,6 @@ description: 'Build a tabs component with morphing underline and crossfading pan
 ogImage: /images/blog/og-view-transition-api.png
 ---
 
-![View Transitions API](/images/blog/og-view-transition-api.png)
-
 The View Transitions API turns "before-state to after-state" into a one-liner. You wrap a DOM mutation in `document.startViewTransition()` and the browser:
 
 1. Snapshots the current page.
