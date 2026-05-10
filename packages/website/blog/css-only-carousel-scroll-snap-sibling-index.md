@@ -1,6 +1,6 @@
 ---
 title: 'A CSS-only carousel with scroll-snap and sibling-index()'
-date: 2026-05-03
+date: 2026-05-08
 description: 'Build a complete carousel — snapping track, native pagination dots, staggered entry animations — with zero JavaScript. Uses scroll-snap, ::scroll-marker, and the new sibling-index() function.'
 ogImage: /images/blog/og-css-carousel.jpg
 ---
