@@ -2,468 +2,615 @@
 layout: default.html
 ---
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500;700&display=swap"
-	rel="stylesheet"
-/>
-
-<article class="uc">
-	<header class="uc-hero" style="--hero-accent: {{ accentColor }}">
-		<div class="uc-hero__bg"></div>
-		<div class="uc-hero__content">
-			<span class="uc-hero__eyebrow">{{ eyebrow }}</span>
-			<h1 class="uc-hero__title">{{ title }}</h1>
-			<p class="uc-hero__lead">{{ lead }}</p>
-			<a href="/create/" class="uc-hero__cta">
-				<span>Start Coding Free</span>
-				<svg
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path d="M5 12h14M12 5l7 7-7 7" />
-				</svg>
-			</a>
-		</div>
-		<div class="uc-hero__icon">{{ heroIcon }}</div>
-	</header>
-
-	<section class="uc-benefits">
-		<h2 class="uc-benefits__title">Why Web Maker?</h2>
-		<div class="uc-benefits__grid">
-			{% for benefit in benefits %}
-			<div class="uc-benefit">
-				<div class="uc-benefit__number">
-					{{ forloop.index | prepend: '0' | slice: -2, 2 }}
-				</div>
-				<h3 class="uc-benefit__title">{{ benefit.title }}</h3>
-				<p class="uc-benefit__text">{{ benefit.text }}</p>
-			</div>
-			{% endfor %}
-		</div>
-	</section>
-
-	<div class="uc-content">{{ content }}</div>
-
-	<section class="uc-cta" style="--cta-accent: {{ accentColor }}">
-		<div class="uc-cta__inner">
-			<h2 class="uc-cta__title">{{ ctaTitle }}</h2>
-			<p class="uc-cta__text">{{ ctaText }}</p>
-			<div class="uc-cta__buttons">
-				<a href="/create/" class="uc-btn uc-btn--primary">
-					<span>Open Web Maker</span>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M5 12h14M12 5l7 7-7 7" />
-					</svg>
-				</a>
-				<a
-					href="https://chrome.google.com/webstore/detail/web-maker/lkfkkhfhhdkiemehlpkgjeojomhpccnh"
-					class="uc-btn uc-btn--secondary"
-				>
-					<span>Chrome Extension</span>
-				</a>
-			</div>
-		</div>
-	</section>
-</article>
-
 <style>
-	/* ===== BASE VARIABLES ===== */
-	.uc {
-		--font-display: 'Playfair Display', Georgia, serif;
-		--font-body: 'DM Sans', -apple-system, sans-serif;
-
-		--color-bg: #faf9f7;
-		--color-surface: #ffffff;
-		--color-text: #1a1a1a;
-		--color-text-muted: #666;
-		--color-border: #e8e6e3;
-
-		font-family: var(--font-body);
-		background: var(--color-bg);
-		color: var(--color-text);
+	/* ============== SHARED BB SCAFFOLDING ============== */
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
 	}
 
-	/* ===== HERO SECTION ===== */
-	.uc-hero {
+	.bb {
 		position: relative;
-		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: center;
-		gap: 3rem;
-		padding: 5rem 4rem;
-		min-height: 70vh;
-		background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-		color: white;
+		left: 50%;
+		right: 50%;
+		width: 100vw;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+		padding-left: max(1rem, calc(50vw - 600px));
+		padding-right: max(1rem, calc(50vw - 600px));
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
 		overflow: hidden;
 	}
-
-	.uc-hero__bg {
-		position: absolute;
-		inset: 0;
-		background: radial-gradient(
-				circle at 80% 20%,
-				var(--hero-accent, #ff6c00),
-				transparent 50%
-			),
-			radial-gradient(
-				circle at 20% 80%,
-				rgba(255, 255, 255, 0.05),
-				transparent 40%
-			);
-		opacity: 0.4;
+	.bb__head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-bottom: 1.2rem;
+		margin-bottom: 2rem;
+		flex-wrap: wrap;
 	}
-
-	.uc-hero__content {
-		position: relative;
-		z-index: 1;
-		max-width: 600px;
-	}
-
-	.uc-hero__eyebrow {
-		display: inline-block;
-		font-size: 0.85rem;
-		font-weight: 700;
-		letter-spacing: 0.15em;
+	.bb__eyebrow {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		letter-spacing: 0.18em;
 		text-transform: uppercase;
-		color: var(--hero-accent, #ff6c00);
-		margin-bottom: 1rem;
-		animation: fadeInUp 0.6s ease-out;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.bb__eyebrow::before {
+		content: '';
+		width: 10px;
+		height: 10px;
+		display: inline-block;
+	}
+	.bb__title {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: clamp(2rem, 4.6vw, 3.6rem);
+		line-height: 0.95;
+		letter-spacing: -0.03em;
+		margin: 0.5rem 0 0;
+		max-width: 22ch;
+	}
+	.bb__title em {
+		font-style: normal;
+		position: relative;
+	}
+	.bb__title em::after {
+		content: '_';
+		animation: blink 1.1s steps(1) infinite;
+	}
+	.bb__meta {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		text-align: right;
+		line-height: 1.7;
 	}
 
-	.uc-hero__title {
-		font-family: var(--font-display);
-		font-size: clamp(2.5rem, 5vw, 4rem);
+	/* CTA buttons */
+	.uc-btn {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
 		font-weight: 700;
-		line-height: 1.1;
-		margin: 0 0 1.5rem;
-		animation: fadeInUp 0.6s ease-out 0.1s both;
-	}
-
-	.uc-hero__lead {
-		font-size: 1.25rem;
-		line-height: 1.6;
-		opacity: 0.85;
-		margin: 0 0 2rem;
-		animation: fadeInUp 0.6s ease-out 0.2s both;
-	}
-
-	.uc-hero__cta {
+		font-size: 0.92rem;
+		letter-spacing: -0.01em;
+		padding: 0.95rem 1.4rem;
+		border: 1px solid #ffe300;
 		display: inline-flex;
 		align-items: center;
-		gap: 0.75rem;
-		padding: 1rem 2rem;
-		background: var(--hero-accent, #ff6c00);
-		color: white;
+		gap: 0.5rem;
 		text-decoration: none;
-		font-weight: 700;
-		font-size: 1rem;
-		border-radius: 8px;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		animation: fadeInUp 0.6s ease-out 0.3s both;
+		cursor: pointer;
+		transition:
+			transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+			box-shadow 0.25s,
+			background 0.2s,
+			color 0.2s,
+			border-color 0.2s;
+	}
+	.uc-btn--primary {
+		background: #ffe300;
+		color: #0a0a0f !important;
+		box-shadow: 6px 6px 0 #f4f1ea;
+	}
+	.uc-btn--primary:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #f4f1ea;
+	}
+	.uc-btn--ghost {
+		background: transparent;
+		color: #f4f1ea !important;
+		border-color: #2c2c36;
+		box-shadow: 6px 6px 0 #2c2c36;
+	}
+	.uc-btn--ghost:hover {
+		border-color: #ffe300;
+		color: #ffe300 !important;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
+	}
+	.uc-btn--dark {
+		background: #0a0a0f;
+		color: #ffe300 !important;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.uc-btn--dark:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #0a0a0f;
+		background: #1a1a23;
+	}
+	.uc-btn--ghost-paper {
+		background: transparent;
+		color: #0a0a0f !important;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.uc-btn--ghost-paper:hover {
+		background: #0a0a0f;
+		color: #ffe300 !important;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
 	}
 
-	.uc-hero__cta:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	/* ============== HERO ============== */
+	.uc-hero {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			rgba(255, 255, 255, 0.06) 1px,
+			transparent 0
+		);
+		background-size: 22px 22px;
+		border-bottom: 1px solid #2a2a33;
+	}
+	.uc-hero .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.uc-hero .bb__eyebrow {
+		color: #ffe300;
+	}
+	.uc-hero .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.uc-hero .bb__title {
+		color: #f4f1ea;
+		max-width: 24ch;
+	}
+	.uc-hero .bb__title em {
+		color: #ffe300;
+	}
+	.uc-hero .bb__meta {
+		color: #8a8a96;
+	}
+	.uc-hero .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+	.uc-hero__lead {
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+		line-height: 1.55;
+		color: #b9b9c4;
+		margin: 1.6rem 0 1.8rem;
+		max-width: 64ch;
+	}
+	.uc-hero__lead b,
+	.uc-hero__lead strong {
+		color: #f4f1ea;
+		font-weight: 500;
+		background: rgba(255, 227, 0, 0.08);
+		padding: 0 4px;
+	}
+	.uc-hero__cta {
+		display: flex;
+		gap: 0.8rem;
+		flex-wrap: wrap;
 	}
 
-	.uc-hero__cta svg {
-		transition: transform 0.3s;
+	@media (max-width: 480px) {
+		.uc-hero__cta {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.uc-hero__cta .uc-btn {
+			width: 100%;
+			justify-content: center;
+			box-sizing: border-box;
+		}
 	}
 
-	.uc-hero__cta:hover svg {
-		transform: translateX(4px);
-	}
-
-	.uc-hero__icon {
-		position: relative;
-		z-index: 1;
-		font-size: 12rem;
-		opacity: 0.15;
-		animation: floatIn 1s ease-out 0.2s both;
-	}
-
-	/* ===== BENEFITS SECTION ===== */
+	/* ============== BENEFITS ============== */
 	.uc-benefits {
-		padding: 5rem 3rem;
-		background: var(--color-surface);
+		background: #f4f1ea;
+		color: #0a0a0f;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			transparent 0 18px,
+			rgba(10, 10, 15, 0.025) 18px 19px
+		);
+		border-bottom: 1px solid #0a0a0f;
 	}
-
-	.uc-benefits__title {
-		font-family: var(--font-display);
-		font-size: 2rem;
-		text-align: center;
-		margin: 0 0 3rem;
+	.uc-benefits .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.uc-benefits .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.uc-benefits .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.uc-benefits .bb__title em {
+		color: #0a0a0f;
+	}
+	.uc-benefits .bb__meta {
+		color: #555;
+	}
+	.uc-benefits .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
 	}
 
 	.uc-benefits__grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-		max-width: 1100px;
-		margin: 0 auto;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0;
+		border: 1px solid #0a0a0f;
+		background: #f4f1ea;
 	}
-
 	.uc-benefit {
-		padding: 2rem;
-		border: 1px solid var(--color-border);
-		border-radius: 12px;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1.4rem;
+		align-items: start;
+		padding: 1.8rem 1.6rem;
+		border-right: 1px dashed #0a0a0f;
+		border-bottom: 1px dashed #0a0a0f;
 		transition:
-			transform 0.3s,
-			box-shadow 0.3s;
+			background 0.3s,
+			color 0.3s;
+		position: relative;
 	}
-
-	.uc-benefit:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+	.uc-benefit:nth-child(2n) {
+		border-right: none;
 	}
-
-	.uc-benefit__number {
-		font-family: var(--font-display);
-		font-size: 3rem;
-		font-weight: 700;
-		color: var(--color-border);
-		line-height: 1;
-		margin-bottom: 1rem;
+	.uc-benefit:nth-last-child(-n + 2) {
+		border-bottom: none;
 	}
-
+	.uc-benefit__num {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: 4.2rem;
+		line-height: 0.85;
+		letter-spacing: -0.05em;
+		-webkit-text-stroke: 1.5px #0a0a0f;
+		color: transparent;
+		min-width: 2.2ch;
+	}
 	.uc-benefit__title {
-		font-size: 1.2rem;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
 		font-weight: 700;
-		margin: 0 0 0.75rem;
+		font-size: 1.18rem;
+		line-height: 1.18;
+		letter-spacing: -0.02em;
+		margin: 0.2rem 0 0.5rem;
+		color: #0a0a0f;
 	}
-
 	.uc-benefit__text {
-		color: var(--color-text-muted);
-		line-height: 1.6;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: 0.94rem;
+		line-height: 1.55;
+		color: #44444a;
 		margin: 0;
 	}
+	.uc-benefit:hover {
+		background: #0a0a0f;
+	}
+	.uc-benefit:hover .uc-benefit__num {
+		-webkit-text-stroke: 1.5px #ffe300;
+		color: #ffe300;
+	}
+	.uc-benefit:hover .uc-benefit__title {
+		color: #ffe300;
+	}
+	.uc-benefit:hover .uc-benefit__text {
+		color: #b9b9c4;
+	}
 
-	/* ===== CONTENT SECTION ===== */
+	@media (max-width: 760px) {
+		.uc-benefits__grid {
+			grid-template-columns: 1fr;
+		}
+		.uc-benefit {
+			border-right: none !important;
+			border-bottom: 1px dashed #0a0a0f !important;
+		}
+		.uc-benefit:last-child {
+			border-bottom: none !important;
+		}
+	}
+
+	/* ============== MARKDOWN CONTENT ============== */
 	.uc-content {
-		max-width: 750px;
+		background: #f4f1ea;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
+		padding-top: clamp(2.5rem, 5vw, 4rem);
+		padding-bottom: clamp(2.5rem, 5vw, 4rem);
+	}
+	.uc-content__inner {
+		max-width: 72ch;
 		margin: 0 auto;
-		padding: 4rem 2rem;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: 1.02rem;
+		line-height: 1.65;
+		color: #2a2a33;
 	}
-
-	.uc-content h2 {
-		font-family: var(--font-display);
-		font-size: 2rem;
-		font-weight: 700;
-		margin: 3rem 0 1rem;
+	.uc-content__inner h2 {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+		letter-spacing: -0.02em;
+		line-height: 1.15;
+		color: #0a0a0f;
+		margin: 2.6rem 0 1rem;
+		padding-bottom: 0.4rem;
+		border-bottom: 1px dashed #0a0a0f;
 	}
-
-	.uc-content h2:first-child {
+	.uc-content__inner h2:first-child {
 		margin-top: 0;
 	}
-
-	.uc-content h3 {
-		font-size: 1.3rem;
+	.uc-content__inner h3 {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
 		font-weight: 700;
-		margin: 2rem 0 0.75rem;
+		font-size: 1.18rem;
+		letter-spacing: -0.01em;
+		color: #0a0a0f;
+		margin: 1.8rem 0 0.6rem;
 	}
-
-	.uc-content p {
-		color: var(--color-text-muted);
-		line-height: 1.8;
-		margin: 1rem 0;
-		font-size: 1.05rem;
+	.uc-content__inner h3::before {
+		content: '# ';
+		color: #ffe300;
+		background: #0a0a0f;
+		padding: 0 6px;
+		margin-right: 6px;
+		font-size: 0.78rem;
+		letter-spacing: 0.08em;
+		vertical-align: middle;
 	}
-
-	.uc-content ul,
-	.uc-content ol {
-		color: var(--color-text-muted);
-		line-height: 1.8;
-		padding-left: 1.5rem;
+	.uc-content__inner p {
+		margin: 0.9rem 0;
+		color: #2a2a33;
 	}
-
-	.uc-content li {
-		margin: 0.75rem 0;
+	.uc-content__inner strong {
+		color: #0a0a0f;
+		font-weight: 600;
 	}
-
-	.uc-content strong {
-		color: var(--color-text);
+	.uc-content__inner a {
+		color: #0a0a0f;
+		text-decoration: underline;
+		text-decoration-color: #ffe300;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+	.uc-content__inner a:hover {
+		background: #0a0a0f;
+		color: #ffe300;
+		text-decoration: none;
+	}
+	.uc-content__inner ul,
+	.uc-content__inner ol {
+		margin: 0.8rem 0;
+		padding-left: 1.4rem;
+		color: #2a2a33;
+	}
+	.uc-content__inner li {
+		margin: 0.4rem 0;
+	}
+	.uc-content__inner ul li::marker {
+		color: #ffe300;
+	}
+	.uc-content__inner blockquote {
+		margin: 1.6rem 0;
+		padding: 1rem 1.2rem;
+		border-left: 3px solid #ffe300;
+		background: rgba(255, 227, 0, 0.08);
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: #0a0a0f;
+	}
+	.uc-content__inner code {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		background: #0a0a0f;
+		color: #ffe300;
+		padding: 0.12em 0.4em;
+		font-size: 0.88em;
+		border-radius: 0;
+	}
+	.uc-content__inner pre {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		padding: 1rem 1.25rem;
+		border: 1px solid #23232c;
+		overflow-x: auto;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.88rem;
+		line-height: 1.55;
+		margin: 1.4rem 0;
+	}
+	.uc-content__inner pre code {
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+	.uc-content__inner table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.4rem 0;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.88rem;
+		border: 1px solid #0a0a0f;
+	}
+	.uc-content__inner th,
+	.uc-content__inner td {
+		padding: 0.7rem 0.9rem;
+		border: 1px solid #0a0a0f;
+		text-align: left;
+		line-height: 1.5;
+	}
+	.uc-content__inner th {
+		background: #0a0a0f;
+		color: #ffe300;
+		font-size: 0.74rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
 		font-weight: 700;
 	}
 
-	.uc-content blockquote {
-		border-left: 4px solid #ff6c00;
-		margin: 2rem 0;
-		padding: 1rem 0 1rem 2rem;
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: 1.25rem;
-		color: var(--color-text);
-	}
-
-	/* Testimonial cards */
-	.uc-content .testimonial {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: 12px;
-		padding: 2rem;
-		margin: 2rem 0;
-	}
-
-	.uc-content .testimonial__quote {
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: 1.15rem;
-		line-height: 1.6;
-		margin: 0 0 1rem;
-	}
-
-	.uc-content .testimonial__author {
-		font-weight: 700;
-		color: var(--color-text);
-	}
-
-	/* ===== CTA SECTION ===== */
+	/* ============== CTA STRIP ============== */
 	.uc-cta {
-		background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-		padding: 5rem 2rem;
-		text-align: center;
-		color: white;
-		position: relative;
-		overflow: hidden;
+		background: #ffe300;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
 	}
-
-	.uc-cta::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 600px;
-		height: 400px;
-		background: radial-gradient(
-			ellipse,
-			var(--cta-accent, #ff6c00),
-			transparent 70%
-		);
-		opacity: 0.2;
+	.uc-cta .bb__head {
+		border-bottom: 1px solid #0a0a0f;
 	}
-
-	.uc-cta__inner {
-		position: relative;
-		z-index: 1;
-		max-width: 600px;
-		margin: 0 auto;
+	.uc-cta .bb__eyebrow {
+		color: #0a0a0f;
 	}
-
-	.uc-cta__title {
-		font-family: var(--font-display);
-		font-size: 2.5rem;
-		margin: 0 0 1rem;
+	.uc-cta .bb__eyebrow::before {
+		background: #0a0a0f;
 	}
-
-	.uc-cta__text {
-		font-size: 1.1rem;
-		opacity: 0.8;
-		margin: 0 0 2rem;
+	.uc-cta .bb__title em {
+		color: #0a0a0f;
 	}
-
-	.uc-cta__buttons {
+	.uc-cta .bb__meta {
+		color: #44444a;
+	}
+	.uc-cta .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+	.uc-cta__row {
 		display: flex;
-		gap: 1rem;
-		justify-content: center;
+		align-items: center;
+		gap: 0.9rem;
 		flex-wrap: wrap;
 	}
-
-	.uc-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.6rem;
-		padding: 1rem 2rem;
-		border-radius: 8px;
-		text-decoration: none;
+	.uc-cta__copy {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: clamp(1.05rem, 1.6vw, 1.25rem);
 		font-weight: 700;
-		font-size: 1rem;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		letter-spacing: -0.02em;
+		color: #0a0a0f;
+		max-width: 30ch;
+		line-height: 1.3;
+		margin: 0 auto 0 0;
 	}
 
-	.uc-btn--primary {
-		background: #ff6c00;
-		color: white;
-	}
-
-	.uc-btn--primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 25px rgba(255, 108, 0, 0.4);
-	}
-
-	.uc-btn--secondary {
-		background: rgba(255, 255, 255, 0.1);
-		color: white;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
-	.uc-btn--secondary:hover {
-		background: rgba(255, 255, 255, 0.2);
-	}
-
-	/* ===== ANIMATIONS ===== */
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(30px);
+	@media (max-width: 600px) {
+		.uc-cta__row {
+			flex-direction: column;
+			align-items: stretch;
 		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	@keyframes floatIn {
-		from {
-			opacity: 0;
-			transform: scale(0.8) rotate(-10deg);
-		}
-		to {
-			opacity: 0.15;
-			transform: scale(1) rotate(0deg);
-		}
-	}
-
-	/* ===== RESPONSIVE ===== */
-	@media (max-width: 900px) {
-		.uc-hero {
-			grid-template-columns: 1fr;
-			padding: 4rem 2rem;
-			min-height: auto;
-		}
-
-		.uc-hero__icon {
-			position: absolute;
-			right: -2rem;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-
-		.uc-benefits {
-			padding: 4rem 2rem;
-		}
-
-		.uc-cta__title {
-			font-size: 2rem;
-		}
-
-		.uc-btn {
-			width: 100%;
+		.uc-cta__row .uc-btn {
 			justify-content: center;
 		}
 	}
 </style>
+
+<section class="bb uc-hero" aria-labelledby="uc-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">USE CASE // {{ eyebrow | upcase }}</div>
+			<h1 class="bb__title" id="uc-title">{{ title }} <em></em></h1>
+		</div>
+		<div class="bb__meta">
+			<div>{{ benefits.size }} core benefits</div>
+			<div><b>$ webmaker</b> --use={{ page.fileSlug }}</div>
+		</div>
+	</header>
+
+	<p class="uc-hero__lead">{{ lead }}</p>
+
+	<div class="uc-hero__cta">
+		<a class="uc-btn uc-btn--primary" href="/create/">
+			Open the playground
+			<svg
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="3"
+			>
+				<path d="M5 12h14M12 5l7 7-7 7" />
+			</svg>
+		</a>
+		<a
+			class="uc-btn uc-btn--ghost"
+			href="https://chrome.google.com/webstore/detail/web-maker/lkfkkhfhhdkiemehlpkgjeojomhpccnh"
+		>
+			Add to Chrome
+		</a>
+	</div>
+</section>
+
+<section class="bb uc-benefits" aria-labelledby="uc-benefits-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">SPEC SHEET // 0{{ benefits.size }}</div>
+			<h2 class="bb__title" id="uc-benefits-title">Why <em>web maker</em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>core advantages</div>
+			<div><b>$ ls</b> ./benefits</div>
+		</div>
+	</header>
+
+	<div class="uc-benefits__grid">
+		{% for benefit in benefits %}
+		<article class="uc-benefit">
+			<div class="uc-benefit__num">
+				{{ forloop.index | prepend: '0' | slice: -2, 2 }}
+			</div>
+			<div>
+				<h3 class="uc-benefit__title">{{ benefit.title }}</h3>
+				<p class="uc-benefit__text">{{ benefit.text }}</p>
+			</div>
+		</article>
+		{% endfor %}
+	</div>
+</section>
+
+<section class="bb uc-content">
+	<div class="uc-content__inner">{{ content }}</div>
+</section>
+
+<section class="bb uc-cta" aria-labelledby="uc-cta-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">EXIT // 0</div>
+			<h2 class="bb__title" id="uc-cta-title">{{ ctaTitle }} <em></em></h2>
+		</div>
+		<div class="bb__meta">
+			<div>{{ ctaText }}</div>
+			<div><b>$ ./start</b></div>
+		</div>
+	</header>
+
+	<div class="uc-cta__row">
+		<p class="uc-cta__copy">{{ ctaText }}</p>
+		<a class="uc-btn uc-btn--dark" href="/create/">
+			Open Web Maker
+			<svg
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="3"
+			>
+				<path d="M5 12h14M12 5l7 7-7 7" />
+			</svg>
+		</a>
+		<a
+			class="uc-btn uc-btn--ghost-paper"
+			href="https://chrome.google.com/webstore/detail/web-maker/lkfkkhfhhdkiemehlpkgjeojomhpccnh"
+		>
+			Chrome Extension
+		</a>
+	</div>
+</section>

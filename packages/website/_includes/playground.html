@@ -2,623 +2,765 @@
 layout: default.html
 ---
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Sora:wght@300;400;600;700&display=swap"
-	rel="stylesheet"
-/>
+<style>
+	/* ============== SHARED BB SCAFFOLDING ============== */
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
+	}
 
-<article class="pg">
-	<header class="pg-hero">
-		<div class="pg-hero__grid"></div>
-		<div class="pg-hero__content">
-			<div class="pg-hero__badge" style="--badge-color: {{ accentColor }}">
-				{{ badgeText }}
-			</div>
-			<h1 class="pg-hero__title">{{ title }}</h1>
-			<p class="pg-hero__subtitle">{{ subtitle }}</p>
-			<div class="pg-hero__actions">
+	.bb {
+		position: relative;
+		left: 50%;
+		right: 50%;
+		width: 100vw;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+		padding-left: max(1rem, calc(50vw - 600px));
+		padding-right: max(1rem, calc(50vw - 600px));
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		overflow: hidden;
+	}
+	.bb__head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-bottom: 1.2rem;
+		margin-bottom: 2rem;
+		flex-wrap: wrap;
+	}
+	.bb__eyebrow {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.bb__eyebrow::before {
+		content: '';
+		width: 10px;
+		height: 10px;
+		display: inline-block;
+	}
+	.bb__title {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: clamp(1.8rem, 4vw, 3.2rem);
+		line-height: 1;
+		letter-spacing: -0.03em;
+		margin: 0.5rem 0 0;
+		max-width: 22ch;
+	}
+	.bb__title em {
+		font-style: normal;
+		position: relative;
+	}
+	.bb__title em::after {
+		content: '_';
+		animation: blink 1.1s steps(1) infinite;
+	}
+	.bb__meta {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.78rem;
+		text-align: right;
+		line-height: 1.7;
+	}
+
+	/* CTA buttons */
+	.pg-btn {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 700;
+		font-size: 0.92rem;
+		letter-spacing: -0.01em;
+		padding: 0.95rem 1.4rem;
+		border: 1px solid #ffe300;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+		cursor: pointer;
+		transition:
+			transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+			box-shadow 0.25s,
+			background 0.2s,
+			color 0.2s,
+			border-color 0.2s;
+	}
+	.pg-btn--primary {
+		background: #ffe300;
+		color: #0a0a0f !important;
+		box-shadow: 6px 6px 0 #f4f1ea;
+	}
+	.pg-btn--primary:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #f4f1ea;
+	}
+	.pg-btn--ghost {
+		background: transparent;
+		color: #f4f1ea !important;
+		border-color: #2c2c36;
+		box-shadow: 6px 6px 0 #2c2c36;
+	}
+	.pg-btn--ghost:hover {
+		border-color: #ffe300;
+		color: #ffe300 !important;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
+	}
+	.pg-btn--dark {
+		background: #0a0a0f;
+		color: #ffe300 !important;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.pg-btn--dark:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #0a0a0f;
+		background: #1a1a23;
+	}
+	.pg-btn--ghost-paper {
+		background: transparent;
+		color: #0a0a0f !important;
+		border-color: #0a0a0f;
+		box-shadow: 6px 6px 0 #0a0a0f;
+	}
+	.pg-btn--ghost-paper:hover {
+		background: #0a0a0f;
+		color: #ffe300 !important;
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 #ffe300;
+	}
+
+	/* ============== HERO ============== */
+	.pg-hero {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			rgba(255, 255, 255, 0.06) 1px,
+			transparent 0
+		);
+		background-size: 22px 22px;
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pg-hero .bb__head {
+		border-bottom: 1px solid #2a2a33;
+	}
+	.pg-hero .bb__eyebrow {
+		color: #ffe300;
+	}
+	.pg-hero .bb__eyebrow::before {
+		background: #ffe300;
+		box-shadow: 0 0 12px #ffe300;
+	}
+	.pg-hero .bb__title {
+		color: #f4f1ea;
+	}
+	.pg-hero .bb__title em {
+		color: #ffe300;
+	}
+	.pg-hero .bb__meta {
+		color: #8a8a96;
+	}
+	.pg-hero .bb__meta b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+
+	.pg-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.5rem, 4vw, 3.5rem);
+		align-items: center;
+	}
+	.pg-hero__tag {
+		display: inline-flex;
+		align-items: center;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		border: 1px solid #4d4732;
+		color: #ffe300;
+		margin-bottom: 1.4rem;
+	}
+	.pg-hero__sub {
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+		line-height: 1.55;
+		color: #b9b9c4;
+		margin: 0 0 2rem;
+		max-width: 50ch;
+	}
+	.pg-hero__cta {
+		display: flex;
+		gap: 0.8rem;
+		flex-wrap: wrap;
+	}
+
+	/* Code window */
+	.pg-window {
+		background: #111118;
+		border: 1px solid #23232c;
+		box-shadow: 12px 12px 0 #ffe300;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		overflow: hidden;
+		max-width: 540px;
+		margin-left: auto;
+		width: 100%;
+	}
+	.pg-window__bar {
+		background: #0a0a0f;
+		padding: 0.65rem 0.9rem;
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		border-bottom: 1px solid #23232c;
+		font-size: 0.74rem;
+		color: #8a8a96;
+	}
+	.pg-window__dots {
+		display: flex;
+		gap: 6px;
+		margin-right: 4px;
+	}
+	.pg-window__dots span {
+		width: 11px;
+		height: 11px;
+		border-radius: 50%;
+		background: #ff5a36;
+	}
+	.pg-window__dots span:nth-child(2) {
+		background: #ffe300;
+	}
+	.pg-window__dots span:nth-child(3) {
+		background: #b9b9c4;
+	}
+	.pg-window__file {
+		letter-spacing: 0.04em;
+	}
+	.pg-window__file::before {
+		content: '~/';
+		color: #555;
+	}
+	.pg-window__file b {
+		color: #f4f1ea;
+		font-weight: 500;
+	}
+	.pg-window__code {
+		margin: 0;
+		padding: 1.1rem 1.2rem;
+		color: #f4f1ea;
+		font-size: 0.84rem;
+		line-height: 1.55;
+		white-space: pre;
+		overflow-x: auto;
+		max-height: 420px;
+	}
+
+	@media (max-width: 880px) {
+		.pg-hero__grid {
+			grid-template-columns: 1fr;
+		}
+		.pg-window {
+			margin: 0 auto;
+		}
+	}
+	@media (max-width: 480px) {
+		.pg-hero__cta {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.pg-hero__cta .pg-btn {
+			width: 100%;
+			justify-content: center;
+			box-sizing: border-box;
+		}
+	}
+
+	/* ============== FEATURES ============== */
+	.pg-features {
+		background: #f4f1ea;
+		color: #0a0a0f;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			transparent 0 18px,
+			rgba(10, 10, 15, 0.025) 18px 19px
+		);
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pg-features .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pg-features .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.pg-features .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.pg-features .bb__title em {
+		color: #0a0a0f;
+	}
+	.pg-features .bb__meta {
+		color: #555;
+	}
+	.pg-features .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+
+	.pg-features__grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0;
+		border: 1px solid #0a0a0f;
+		background: #f4f1ea;
+	}
+	.pg-feat {
+		padding: 1.7rem 1.6rem;
+		border-right: 1px dashed #0a0a0f;
+		border-bottom: 1px dashed #0a0a0f;
+		transition:
+			background 0.3s,
+			color 0.3s;
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+		min-height: 200px;
+	}
+	.pg-feat:nth-child(2n) {
+		border-right: none;
+	}
+	.pg-feat:nth-last-child(-n + 2) {
+		border-bottom: none;
+	}
+	.pg-feat__head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #555;
+	}
+	.pg-feat__num {
+		font-weight: 700;
+		color: #0a0a0f;
+	}
+	.pg-feat__flag {
+		color: #0a0a0f;
+		background: #ffe300;
+		padding: 2px 7px;
+		letter-spacing: 0.06em;
+		text-transform: none;
+		font-weight: 500;
+	}
+	.pg-feat__title {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 700;
+		font-size: 1.18rem;
+		line-height: 1.18;
+		letter-spacing: -0.02em;
+		color: #0a0a0f;
+		margin: 0.2rem 0 0;
+	}
+	.pg-feat__text {
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: 0.94rem;
+		line-height: 1.55;
+		color: #44444a;
+		margin: 0;
+	}
+	.pg-feat:hover {
+		background: #0a0a0f;
+	}
+	.pg-feat:hover .pg-feat__head {
+		color: #8a8a96;
+	}
+	.pg-feat:hover .pg-feat__num,
+	.pg-feat:hover .pg-feat__title {
+		color: #ffe300;
+	}
+	.pg-feat:hover .pg-feat__text {
+		color: #b9b9c4;
+	}
+
+	@media (max-width: 600px) {
+		.pg-features__grid {
+			grid-template-columns: 1fr;
+		}
+		.pg-feat {
+			border-right: none !important;
+			border-bottom: 1px dashed #0a0a0f !important;
+		}
+		.pg-feat:last-child {
+			border-bottom: none !important;
+		}
+	}
+
+	/* ============== MARKDOWN CONTENT ============== */
+	.pg-content {
+		background: #f4f1ea;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
+		padding-top: clamp(2.5rem, 5vw, 4rem);
+		padding-bottom: clamp(2.5rem, 5vw, 4rem);
+	}
+	.pg-content__inner {
+		max-width: 76ch;
+		margin: 0 auto;
+		font-family: 'IBM Plex Sans', system-ui, sans-serif;
+		font-size: 1.02rem;
+		line-height: 1.65;
+		color: #2a2a33;
+	}
+	.pg-content__inner h2 {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 800;
+		font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+		letter-spacing: -0.02em;
+		line-height: 1.15;
+		color: #0a0a0f;
+		margin: 2.6rem 0 1rem;
+		padding-bottom: 0.4rem;
+		border-bottom: 1px dashed #0a0a0f;
+	}
+	.pg-content__inner h2:first-child {
+		margin-top: 0;
+	}
+	.pg-content__inner h3 {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-weight: 700;
+		font-size: 1.18rem;
+		letter-spacing: -0.01em;
+		color: #0a0a0f;
+		margin: 1.8rem 0 0.6rem;
+	}
+	.pg-content__inner h3::before {
+		content: '# ';
+		color: #ffe300;
+		background: #0a0a0f;
+		padding: 0 6px;
+		margin-right: 6px;
+		font-size: 0.78rem;
+		letter-spacing: 0.08em;
+		vertical-align: middle;
+	}
+	.pg-content__inner p {
+		margin: 0.9rem 0;
+		color: #2a2a33;
+	}
+	.pg-content__inner strong {
+		color: #0a0a0f;
+		font-weight: 600;
+	}
+	.pg-content__inner a {
+		color: #0a0a0f;
+		text-decoration: underline;
+		text-decoration-color: #ffe300;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+	.pg-content__inner a:hover {
+		background: #0a0a0f;
+		color: #ffe300;
+		text-decoration: none;
+	}
+	.pg-content__inner ul,
+	.pg-content__inner ol {
+		margin: 0.8rem 0;
+		padding-left: 1.4rem;
+		color: #2a2a33;
+	}
+	.pg-content__inner li {
+		margin: 0.4rem 0;
+	}
+	.pg-content__inner ul li::marker {
+		color: #ffe300;
+	}
+	.pg-content__inner blockquote {
+		margin: 1.6rem 0;
+		padding: 1rem 1.2rem;
+		border-left: 3px solid #ffe300;
+		background: rgba(255, 227, 0, 0.08);
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: #0a0a0f;
+	}
+	.pg-content__inner code {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		background: #0a0a0f;
+		color: #ffe300;
+		padding: 0.12em 0.4em;
+		font-size: 0.88em;
+		border-radius: 0;
+	}
+	.pg-content__inner pre {
+		background: #0a0a0f;
+		color: #f4f1ea;
+		padding: 1rem 1.25rem;
+		border: 1px solid #23232c;
+		overflow-x: auto;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.88rem;
+		line-height: 1.55;
+		margin: 1.4rem 0;
+	}
+	.pg-content__inner pre code {
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+	.pg-content__inner table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 1.4rem 0;
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: 0.88rem;
+		border: 1px solid #0a0a0f;
+	}
+	.pg-content__inner th,
+	.pg-content__inner td {
+		padding: 0.7rem 0.9rem;
+		border: 1px solid #0a0a0f;
+		text-align: left;
+		line-height: 1.5;
+	}
+	.pg-content__inner th {
+		background: #0a0a0f;
+		color: #ffe300;
+		font-size: 0.74rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+
+	/* ============== CTA STRIP ============== */
+	.pg-cta {
+		background: #ffe300;
+		color: #0a0a0f;
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pg-cta .bb__head {
+		border-bottom: 1px solid #0a0a0f;
+	}
+	.pg-cta .bb__eyebrow {
+		color: #0a0a0f;
+	}
+	.pg-cta .bb__eyebrow::before {
+		background: #0a0a0f;
+	}
+	.pg-cta .bb__title em {
+		color: #0a0a0f;
+	}
+	.pg-cta .bb__meta {
+		color: #44444a;
+	}
+	.pg-cta .bb__meta b {
+		color: #0a0a0f;
+		font-weight: 500;
+	}
+	.pg-cta__row {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		flex-wrap: wrap;
+	}
+	.pg-cta__copy {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: #0a0a0f;
+		max-width: 32ch;
+		line-height: 1.3;
+		margin: 0 auto 0 0;
+	}
+
+	@media (max-width: 600px) {
+		.pg-cta__row {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.pg-cta__row .pg-btn {
+			justify-content: center;
+		}
+	}
+</style>
+
+<section class="bb pg-hero" aria-labelledby="pg-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">PLAYGROUND // {{ shortName | upcase }}</div>
+			<h1 class="bb__title" id="pg-title">{{ title }} <em></em></h1>
+		</div>
+		<div class="bb__meta">
+			<div>{{ badgeText }}</div>
+			<div><b>$ webmaker</b> --lang={{ shortName | downcase }}</div>
+		</div>
+	</header>
+
+	<div class="pg-hero__grid">
+		<div>
+			<span class="pg-hero__tag"
+				>// {{ shortName | downcase }}.{{ fileExt }}</span
+			>
+			<p class="pg-hero__sub">{{ subtitle }}</p>
+			<div class="pg-hero__cta">
 				<a
-					href="{{ createUrl | default: '/create/' }}"
 					class="pg-btn pg-btn--primary"
-					style="--btn-color: {{ accentColor }}"
+					href="{{ createUrl | default: '/create/' }}"
 				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
 						<polygon points="5 3 19 12 5 21 5 3" />
 					</svg>
-					<span>Try {{ shortName }} Editor</span>
+					Try {{ shortName }} editor
 				</a>
-				<a href="#quick-reference" class="pg-btn pg-btn--ghost">
-					<span>Quick Reference</span>
+				<a class="pg-btn pg-btn--ghost" href="#quick-reference">
+					Quick reference
 					<svg
-						width="16"
-						height="16"
+						width="14"
+						height="14"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="3"
 					>
 						<path d="M12 5v14M5 12l7 7 7-7" />
 					</svg>
 				</a>
 			</div>
 		</div>
-		<div class="pg-hero__preview">
-			<div class="pg-editor">
-				<div class="pg-editor__bar">
-					<div class="pg-editor__dots">
-						<span></span><span></span><span></span>
-					</div>
-					<div class="pg-editor__title">
-						{{ shortName | downcase }}.{{ fileExt }}
-					</div>
+
+		<div class="pg-window" aria-hidden="true">
+			<div class="pg-window__bar">
+				<div class="pg-window__dots">
+					<span></span><span></span><span></span>
 				</div>
-				<pre class="pg-editor__code"><code>{{ sampleCode }}</code></pre>
+				<span class="pg-window__file"
+					><b>{{ shortName | downcase }}.{{ fileExt }}</b></span
+				>
 			</div>
+			<pre class="pg-window__code"><code>{{ sampleCode }}</code></pre>
+		</div>
+	</div>
+</section>
+
+<section class="bb pg-features" aria-labelledby="pg-features-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">SPEC SHEET // 04</div>
+			<h2 class="bb__title" id="pg-features-title">
+				Why this <em>playground</em>
+			</h2>
+		</div>
+		<div class="bb__meta">
+			<div>core capabilities</div>
+			<div><b>$ ls</b> ./features</div>
 		</div>
 	</header>
 
-	<section class="pg-features">
-		<div class="pg-features__grid">
-			<div class="pg-feature" style="--delay: 0">
-				<div class="pg-feature__icon" style="--icon-color: {{ accentColor }}">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-					</svg>
-				</div>
-				<h3 class="pg-feature__title">Instant Compilation</h3>
-				<p class="pg-feature__text">
-					Write {{ shortName }} code and see the compiled output in real-time.
-					No build setup required.
-				</p>
+	<div class="pg-features__grid">
+		<article class="pg-feat">
+			<div class="pg-feat__head">
+				<span class="pg-feat__num">01 · COMPILE</span>
+				<span class="pg-feat__flag">--realtime</span>
 			</div>
-			<div class="pg-feature" style="--delay: 1">
-				<div class="pg-feature__icon" style="--icon-color: {{ accentColor }}">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-					</svg>
-				</div>
-				<h3 class="pg-feature__title">Works Offline</h3>
-				<p class="pg-feature__text">
-					Compile {{ shortName }} locally in your browser. Code anywhere, even
-					without internet.
-				</p>
+			<h3 class="pg-feat__title">Instant compilation</h3>
+			<p class="pg-feat__text">
+				Write {{ shortName }} code, see the compiled output as you type. No
+				build setup, no watchers, no waiting.
+			</p>
+		</article>
+		<article class="pg-feat">
+			<div class="pg-feat__head">
+				<span class="pg-feat__num">02 · OFFLINE</span>
+				<span class="pg-feat__flag">--local</span>
 			</div>
-			<div class="pg-feature" style="--delay: 2">
-				<div class="pg-feature__icon" style="--icon-color: {{ accentColor }}">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-						<line x1="8" y1="21" x2="16" y2="21" />
-						<line x1="12" y1="17" x2="12" y2="21" />
-					</svg>
-				</div>
-				<h3 class="pg-feature__title">Full IDE Features</h3>
-				<p class="pg-feature__text">
-					Syntax highlighting, auto-completion, error detection, and Prettier
-					formatting built-in.
-				</p>
+			<h3 class="pg-feat__title">Works offline</h3>
+			<p class="pg-feat__text">
+				Compilation runs locally in your browser. Code on a flight, a train, a
+				basement — no internet required.
+			</p>
+		</article>
+		<article class="pg-feat">
+			<div class="pg-feat__head">
+				<span class="pg-feat__num">03 · IDE</span>
+				<span class="pg-feat__flag">--full</span>
 			</div>
-			<div class="pg-feature" style="--delay: 3">
-				<div class="pg-feature__icon" style="--icon-color: {{ accentColor }}">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-						<circle cx="9" cy="7" r="4" />
-						<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-						<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-					</svg>
-				</div>
-				<h3 class="pg-feature__title">Share & Collaborate</h3>
-				<p class="pg-feature__text">
-					Share your creations or collaborate in real-time with a simple link.
-				</p>
+			<h3 class="pg-feat__title">Full IDE features</h3>
+			<p class="pg-feat__text">
+				Syntax highlighting, auto-completion, error detection, and Prettier
+				formatting — all built in.
+			</p>
+		</article>
+		<article class="pg-feat">
+			<div class="pg-feat__head">
+				<span class="pg-feat__num">04 · SHARE</span>
+				<span class="pg-feat__flag">--link</span>
 			</div>
+			<h3 class="pg-feat__title">Share &amp; collaborate</h3>
+			<p class="pg-feat__text">
+				Share your creation via a link, or jump into real-time collab — pair
+				program, mob session, teach a friend.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section class="bb pg-content">
+	<div class="pg-content__inner">{{ content }}</div>
+</section>
+
+<section class="bb pg-cta" aria-labelledby="pg-cta-title">
+	<header class="bb__head">
+		<div>
+			<div class="bb__eyebrow">EXIT // 0</div>
+			<h2 class="bb__title" id="pg-cta-title">
+				Start writing <em>{{ shortName | downcase }}</em>
+			</h2>
 		</div>
-	</section>
+		<div class="bb__meta">
+			<div>free · no signup · offline</div>
+			<div><b>$ ./start</b></div>
+		</div>
+	</header>
 
-	<div class="pg-content">{{ content }}</div>
-
-	<section class="pg-cta">
-		<div class="pg-cta__glow" style="--glow-color: {{ accentColor }}"></div>
-		<h2 class="pg-cta__title">Start writing {{ shortName }} now</h2>
-		<p class="pg-cta__text">Free. No signup. Works offline.</p>
-		<a
-			href="{{ createUrl | default: '/create/' }}"
-			class="pg-btn pg-btn--primary pg-btn--large"
-			style="--btn-color: {{ accentColor }}"
-		>
-			<span>Open {{ shortName }} Editor</span>
+	<div class="pg-cta__row">
+		<p class="pg-cta__copy">
+			Free. No signup. Works offline. Open the editor and go.
+		</p>
+		<a class="pg-btn pg-btn--dark" href="{{ createUrl | default: '/create/' }}">
+			Open {{ shortName }} editor
 			<svg
-				width="20"
-				height="20"
+				width="14"
+				height="14"
 				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
-				stroke-width="2"
+				stroke-width="3"
 			>
 				<path d="M5 12h14M12 5l7 7-7 7" />
 			</svg>
 		</a>
-	</section>
-</article>
-
-<style>
-	/* ===== BASE VARIABLES ===== */
-	.pg {
-		--font-display: 'Sora', -apple-system, sans-serif;
-		--font-mono: 'Fira Code', monospace;
-
-		--color-bg: #0c0c10;
-		--color-surface: #141418;
-		--color-surface-elevated: #1c1c22;
-		--color-border: rgba(255, 255, 255, 0.06);
-		--color-text: #f0f0f5;
-		--color-text-muted: #7a7a8c;
-
-		font-family: var(--font-display);
-		background: var(--color-bg);
-		color: var(--color-text);
-		min-height: 100vh;
-	}
-
-	/* ===== HERO SECTION ===== */
-	.pg-hero {
-		position: relative;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 3rem;
-		align-items: center;
-		padding: 4rem 3rem;
-		min-height: 80vh;
-		overflow: hidden;
-	}
-
-	.pg-hero__grid {
-		position: absolute;
-		inset: 0;
-		background-image: linear-gradient(
-				rgba(255, 255, 255, 0.02) 1px,
-				transparent 1px
-			),
-			linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-		background-size: 60px 60px;
-		-webkit-mask: radial-gradient(
-			ellipse 80% 80% at 50% 50%,
-			black,
-			transparent
-		);
-		mask: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
-	}
-
-	.pg-hero__content {
-		position: relative;
-		z-index: 1;
-	}
-
-	.pg-hero__badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.5rem 1rem;
-		background: color-mix(in srgb, var(--badge-color) 15%, transparent);
-		border: 1px solid color-mix(in srgb, var(--badge-color) 30%, transparent);
-		border-radius: 100px;
-		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		font-weight: 500;
-		color: var(--badge-color);
-		margin-bottom: 1.5rem;
-		animation: slideIn 0.5s ease-out;
-	}
-
-	.pg-hero__title {
-		font-size: clamp(2.5rem, 5vw, 4rem);
-		font-weight: 700;
-		line-height: 1.1;
-		margin: 0 0 1rem;
-		letter-spacing: -0.02em;
-		animation: slideIn 0.5s ease-out 0.1s both;
-	}
-
-	.pg-hero__subtitle {
-		font-size: 1.2rem;
-		color: var(--color-text-muted);
-		line-height: 1.6;
-		margin: 0 0 2rem;
-		max-width: 500px;
-		animation: slideIn 0.5s ease-out 0.2s both;
-	}
-
-	.pg-hero__actions {
-		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-		animation: slideIn 0.5s ease-out 0.3s both;
-	}
-
-	.pg-hero__preview {
-		position: relative;
-		z-index: 1;
-		animation: floatIn 0.8s ease-out 0.2s both;
-	}
-
-	/* ===== EDITOR MOCKUP ===== */
-	.pg-editor {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: 12px;
-		overflow: hidden;
-		box-shadow:
-			0 4px 6px rgba(0, 0, 0, 0.1),
-			0 20px 40px rgba(0, 0, 0, 0.3),
-			0 0 100px color-mix(in srgb, var(--badge-color, #ff6c00) 20%, transparent);
-	}
-
-	.pg-editor__bar {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		padding: 0.75rem 1rem;
-		background: var(--color-surface-elevated);
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.pg-editor__dots {
-		display: flex;
-		gap: 6px;
-	}
-
-	.pg-editor__dots span {
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-		background: var(--color-border);
-	}
-
-	.pg-editor__dots span:nth-child(1) {
-		background: #ff5f57;
-	}
-	.pg-editor__dots span:nth-child(2) {
-		background: #febc2e;
-	}
-	.pg-editor__dots span:nth-child(3) {
-		background: #28c840;
-	}
-
-	.pg-editor__title {
-		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		color: var(--color-text-muted);
-	}
-
-	.pg-editor__code {
-		margin: 0;
-		padding: 1.5rem;
-		font-family: var(--font-mono);
-		font-size: 0.9rem;
-		line-height: 1.6;
-		color: var(--color-text-muted);
-		overflow-x: auto;
-		white-space: pre;
-	}
-
-	/* ===== BUTTONS ===== */
-	.pg-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.6rem;
-		padding: 0.9rem 1.5rem;
-		border-radius: 8px;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 0.95rem;
-		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-		border: none;
-		cursor: pointer;
-	}
-
-	.pg-btn--primary {
-		background: var(--btn-color, #ff6c00);
-		color: white;
-		box-shadow: 0 4px 20px
-			color-mix(in srgb, var(--btn-color, #ff6c00) 40%, transparent);
-	}
-
-	.pg-btn--primary:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 30px
-			color-mix(in srgb, var(--btn-color, #ff6c00) 50%, transparent);
-	}
-
-	.pg-btn--ghost {
-		background: transparent;
-		color: var(--color-text-muted);
-		border: 1px solid var(--color-border);
-	}
-
-	.pg-btn--ghost:hover {
-		background: var(--color-surface);
-		color: var(--color-text);
-	}
-
-	.pg-btn--large {
-		padding: 1.1rem 2rem;
-		font-size: 1.05rem;
-	}
-
-	/* ===== FEATURES SECTION ===== */
-	.pg-features {
-		padding: 4rem 3rem;
-		background: var(--color-surface);
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.pg-features__grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 2rem;
-		max-width: 1100px;
-		margin: 0 auto;
-	}
-
-	.pg-feature {
-		padding: 1.5rem;
-		border-radius: 12px;
-		background: var(--color-bg);
-		border: 1px solid var(--color-border);
-		transition:
-			transform 0.3s,
-			box-shadow 0.3s;
-		animation: fadeInUp 0.5s ease-out calc(var(--delay) * 0.1s) both;
-	}
-
-	.pg-feature:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-	}
-
-	.pg-feature__icon {
-		width: 48px;
-		height: 48px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 10px;
-		background: color-mix(in srgb, var(--icon-color) 15%, transparent);
-		color: var(--icon-color);
-		margin-bottom: 1rem;
-	}
-
-	.pg-feature__title {
-		font-size: 1.1rem;
-		font-weight: 600;
-		margin: 0 0 0.5rem;
-	}
-
-	.pg-feature__text {
-		font-size: 0.95rem;
-		color: var(--color-text-muted);
-		line-height: 1.6;
-		margin: 0;
-	}
-
-	/* ===== CONTENT SECTION ===== */
-	.pg-content {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 4rem 2rem;
-	}
-
-	.pg-content h2 {
-		font-size: 1.8rem;
-		font-weight: 700;
-		margin: 3rem 0 1rem;
-		letter-spacing: -0.01em;
-	}
-
-	.pg-content h2:first-child {
-		margin-top: 0;
-	}
-
-	.pg-content h3 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 2rem 0 0.75rem;
-	}
-
-	.pg-content p {
-		color: var(--color-text-muted);
-		line-height: 1.7;
-		margin: 1rem 0;
-	}
-
-	.pg-content ul,
-	.pg-content ol {
-		color: var(--color-text-muted);
-		line-height: 1.8;
-		padding-left: 1.5rem;
-	}
-
-	.pg-content li {
-		margin: 0.5rem 0;
-	}
-
-	.pg-content code {
-		font-family: var(--font-mono);
-		font-size: 0.9em;
-		background: var(--color-surface);
-		padding: 0.2em 0.5em;
-		border-radius: 4px;
-		border: 1px solid var(--color-border);
-	}
-
-	.pg-content pre {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		padding: 1.5rem;
-		overflow-x: auto;
-		margin: 1.5rem 0;
-	}
-
-	.pg-content pre code {
-		background: none;
-		border: none;
-		padding: 0;
-	}
-
-	.pg-content strong {
-		color: var(--color-text);
-		font-weight: 600;
-	}
-
-	/* Quick reference section */
-	.pg-content #quick-reference + ul,
-	.pg-content .quick-ref {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 1rem;
-		list-style: none;
-		padding: 0;
-	}
-
-	.pg-content .quick-ref li,
-	.pg-content #quick-reference + ul li {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		padding: 1rem;
-	}
-
-	/* ===== CTA SECTION ===== */
-	.pg-cta {
-		position: relative;
-		text-align: center;
-		padding: 5rem 2rem;
-		overflow: hidden;
-	}
-
-	.pg-cta__glow {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 500px;
-		height: 300px;
-		background: radial-gradient(
-			ellipse,
-			color-mix(in srgb, var(--glow-color) 30%, transparent),
-			transparent 70%
-		);
-		pointer-events: none;
-	}
-
-	.pg-cta__title {
-		font-size: 2.5rem;
-		font-weight: 700;
-		margin: 0 0 0.5rem;
-		position: relative;
-	}
-
-	.pg-cta__text {
-		color: var(--color-text-muted);
-		font-size: 1.1rem;
-		margin: 0 0 2rem;
-		position: relative;
-	}
-
-	/* ===== ANIMATIONS ===== */
-	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: translateX(-30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
-
-	@keyframes floatIn {
-		from {
-			opacity: 0;
-			transform: translateY(40px) rotateX(10deg);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0) rotateX(0);
-		}
-	}
-
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	/* ===== RESPONSIVE ===== */
-	@media (max-width: 900px) {
-		.pg-hero {
-			grid-template-columns: 1fr;
-			padding: 3rem 1.5rem;
-			min-height: auto;
-		}
-
-		.pg-hero__preview {
-			order: -1;
-		}
-
-		.pg-features {
-			padding: 3rem 1.5rem;
-		}
-
-		.pg-content {
-			padding: 3rem 1.5rem;
-		}
-
-		.pg-cta__title {
-			font-size: 2rem;
-		}
-	}
-</style>
+		<a
+			class="pg-btn pg-btn--ghost-paper"
+			href="https://chrome.google.com/webstore/detail/web-maker/lkfkkhfhhdkiemehlpkgjeojomhpccnh"
+		>
+			Chrome Extension
+		</a>
+	</div>
+</section>
